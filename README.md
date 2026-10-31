@@ -1,5 +1,7 @@
 # Function Psi — Ψ Digital Lab
 
+> **One of the coolest websites out there.**
+
 A desktop-style personal website / web app for **Function Psi**. Mix of **why.university** (playful, experimental) and **v0.dev** (generative UI builder). Runs entirely on GitHub Pages — no build step.
 
 ## Live
@@ -16,7 +18,11 @@ A desktop-style personal website / web app for **Function Psi**. Mix of **why.un
 | **Course Catalog** | why.university-style experimental "degrees." |
 | **Settings** | Dark/light theme toggle. |
 
-Desktop OS feel: draggable/resizable windows, taskbar, start menu, desktop icons, window minimize/close.
+Desktop OS feel: draggable/resizable windows, taskbar, start menu, desktop icons, window minimize/close, neon glassmorphism, and animated mesh background.
+
+## 🕹️ Easter egg
+
+Click the **FxΨ logo** (taskbar or start menu) **5 times** to activate **Cool Mode** — rainbow window borders, spinning logo, and intensified scanlines. Click 5 more times to deactivate.
 
 ## Deploy to GitHub Pages
 
@@ -61,6 +67,7 @@ Edit `data/tools.json` and add entries to the `tools` array. Each tool needs: `i
 
 - Owner: Function Psi
 - Logo: **FxΨ** (Function + Psi)
-- Colors: violet + cyan on dark slate
+- Colors: violet + cyan + magenta on dark slate
+- Tagline: One of the coolest websites out there.
 
 MIT License — fork it, break it, rebuild it.

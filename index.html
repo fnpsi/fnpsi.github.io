@@ -4,22 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Function Psi | Ψ Digital Lab</title>
-  <meta name="description" content="Function Psi's digital playground — tools, projects, generator, and portfolio." />
+  <meta name="description" content="One of the coolest websites out there — Function Psi's digital playground of tools, generators, and experiments." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
+<body data-cool-mode="off">
 
   <!-- ============ DESKTOP ============ -->
   <div class="desktop" id="desktop">
     <div class="mesh-bg" id="mesh-bg"></div>
+    <div class="scanlines" id="scanlines"></div>
 
     <!-- Start Menu -->
     <div class="start-menu" id="start-menu">
       <div class="start-header">
-        <div class="start-avatar">FxΨ</div>
+        <div class="start-avatar" id="start-avatar">FxΨ</div>
         <div class="start-info">
           <div class="start-name">Function Psi</div>
           <div class="start-title">Digital Lab & Portfolio</div>
@@ -30,9 +31,7 @@
         <span class="search-icon">🔍</span>
         <input type="text" id="start-search" placeholder="Search apps, tools, projects…" aria-label="Search apps" />
       </div>
-      <div class="start-apps" id="start-apps">
-        <!-- injected by JS -->
-      </div>
+      <div class="start-apps" id="start-apps"></div>
       <div class="start-footer">
         <button class="start-btn" id="start-theme" title="Toggle theme">🌓 Theme</button>
         <button class="start-btn" id="start-social" title="Social links">🔗 Socials</button>
@@ -45,20 +44,19 @@
     <div class="windows" id="windows"></div>
 
     <!-- Desktop icons -->
-    <div class="desktop-icons" id="desktop-icons">
-      <!-- injected by JS -->
-    </div>
+    <div class="desktop-icons" id="desktop-icons"></div>
   </div>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
 
   <!-- ============ TASKBAR ============ -->
   <div class="taskbar" id="taskbar">
     <button class="taskbar-start" id="taskbar-start" aria-label="Open start menu">
-      <span class="tb-logo">FxΨ</span>
+      <span class="tb-logo" id="tb-logo">FxΨ</span>
     </button>
 
-    <div class="taskbar-apps" id="taskbar-apps">
-      <!-- running app buttons injected -->
-    </div>
+    <div class="taskbar-apps" id="taskbar-apps"></div>
 
     <div class="taskbar-spacer"></div>
 
@@ -70,7 +68,7 @@
     </div>
   </div>
 
-  <!-- Social quick overlay -->
+  <!-- Social overlay -->
   <div class="overlay" id="overlay">
     <div class="overlay-card" id="social-card">
       <button class="overlay-close" id="overlay-close">✕</button>

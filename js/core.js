@@ -25,6 +25,9 @@ class WindowManager {
     this.startSocial = document.getElementById('start-social');
     this.overlay = document.getElementById('overlay');
     this.overlayClose = document.getElementById('overlay-close');
+    this.toast = document.getElementById('toast');
+    this.body = document.body;
+    this.logoClicks = 0;
 
     // App registry: id -> {title, icon, render(el)}
     this.apps = {
@@ -47,6 +50,7 @@ class WindowManager {
     this.renderDesktopIcons();
     this.bindStartMenu();
     this.bindTaskbar();
+    this.bindCoolEasterEgg();
     this.bindGlobal();
     this.openApp('tool-vault', true); // boot with one app open
   }
@@ -161,6 +165,22 @@ class WindowManager {
       const btn = document.querySelector(`.taskbar-app[data-win="${last.id}"]`);
       if (btn) btn.classList.add('active');
     }
+  }
+
+  /* ---------- Toast ---------- */
+  showToast(message, cool = false) {
+    this.toast.textContent = message;
+    this.toast.className = 'toast show' + (cool ? ' cool' : '');
+    setTimeout(() => {
+      this.toast.className = 'toast';
+    }, 2500);
+  }
+
+  /* ---------- Cool Mode easter egg ---------- */
+  toggleCoolMode() {
+    const on = this.body.dataset.coolMode === 'on';
+    this.body.dataset.coolMode = on ? 'off' : 'on';
+    this.showToast(on ? 'Cool mode deactivated' : 'COOL MODE ACTIVATED', !on);
   }
 
   /* ---------- Social ---------- */
@@ -339,6 +359,28 @@ class WindowManager {
       this.resize.elW = el.offsetWidth;
       this.resize.elH = el.offsetHeight;
       el.classList.add('dragging');
+    });
+  }
+
+  /* ---------- Cool mode easter egg ---------- */
+  bindCoolEasterEgg() {
+    const triggers = [this.taskbarStart, this.startClose];
+    // Start avatar is inside start menu; bind when menu opens
+    const handleLogoClick = () => {
+      this.logoClicks++;
+      if (this.logoClicks >= 5) {
+        this.logoClicks = 0;
+        this.toggleCoolMode();
+      }
+    };
+    triggers.forEach((el) => {
+      if (el) el.addEventListener('click', (e) => {
+        // Only count if not the close button closing the menu
+        handleLogoClick();
+      });
+    });
+    this.startMenu.addEventListener('click', (e) => {
+      if (e.target.closest('#start-avatar')) handleLogoClick();
     });
   }
 
