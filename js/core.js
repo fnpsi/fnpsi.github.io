@@ -64,6 +64,9 @@ class WindowManager {
   toggleTheme() {
     const isLight = document.documentElement.classList.toggle('light');
     localStorage.setItem('psi-theme', isLight ? 'light' : 'dark');
+    if (typeof window.updateShaderColors === 'function') {
+      window.updateShaderColors(isLight);
+    }
   }
 
   /* ---------- Clock ---------- */
