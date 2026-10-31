@@ -34,6 +34,11 @@ class WindowManager {
       'tool-vault': { title: 'Tool Vault', icon: '🛠️', render: renderToolVault },
       'psi-generator': { title: 'Ψ Generator', icon: '✨', render: renderGenerator },
       'code-editor': { title: 'Code Editor', icon: '💻', render: renderCodeEditor },
+      'terminal': { title: 'Terminal', icon: '⚡', render: renderTerminal },
+      'file-manager': { title: 'File Manager', icon: '📂', render: renderFileManager },
+      'notes': { title: 'Notes', icon: '📝', render: renderNotes },
+      'calculator': { title: 'Calculator', icon: '🧮', render: renderCalculator },
+      'system-monitor': { title: 'System Monitor', icon: '📊', render: renderSystemMonitor },
       'portfolio': { title: 'Portfolio Archive', icon: '📁', render: renderPortfolio },
       'course-catalog': { title: 'Course Catalog', icon: '🎓', render: renderCourseCatalog },
       'settings': { title: 'Settings', icon: '⚙️', render: renderSettings }
