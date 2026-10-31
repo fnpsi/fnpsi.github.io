@@ -1,7 +1,6 @@
 /* ==========================================================================
-   Function Psi — Generative Art System (Full Page Canvas)
-   Data-driven: weather, stocks, crypto, audio, random
-   Algorithms: particles, waveform, voronoi, spiral
+   Function Psi — Generative Art System with Real API Data
+   Fetches: OpenWeatherMap, Alpha Vantage, CoinGecko, Web Audio API
    ========================================================================== */
 
 function initGenerativeArt() {
@@ -14,6 +13,7 @@ function initGenerativeArt() {
   const paletteSel = document.getElementById('gen-palette');
   const exportBtn = document.getElementById('gen-export');
 
+  // Palettes
   const palettes = {
     psi: ['#8b5cf6', '#06b6d4', '#d946ef', '#22c55e', '#ffffff'],
     teal: ['#d4f6eb', '#b3ded1', '#91c7b7', '#70af9c', '#4e9782', '#356f5e', '#1c4839'],
@@ -22,6 +22,7 @@ function initGenerativeArt() {
     matrix: ['#00ff41', '#00cc33', '#009922', '#006611', '#003300']
   };
 
+  // Data state
   let data = {
     weather: { temp: 22, humidity: 65, wind: 12, pressure: 1013 },
     stocks: { aapl: 189.5, tsla: 245.3, nvda: 875.2, msft: 378.9 },
@@ -30,10 +31,162 @@ function initGenerativeArt() {
     random: Array(100).fill(0).map(() => Math.random() * 100)
   };
 
+  let dataCallbacks = {
+    weather: [],
+    stocks: [],
+    crypto: [],
+    audio: [],
+    random: []
+  };
+
   let particles = [];
   let time = 0;
   let animId;
   let initialized = false;
+  let audioContext = null;
+  let analyser = null;
+  let audioData = null;
+
+  // API Configuration - Replace with your keys
+  const API_CONFIG = {
+    weather: { key: '', url: 'https://api.openweathermap.org/data/2.5/weather' },
+    stocks: { key: '', url: 'https://www.alphavantage.co/query' },
+    crypto: { key: '', url: 'https://api.coingecko.com/api/v3/simple/price' }
+  };
+
+  // Fetch real data
+  async function fetchWeather() {
+    if (!API_CONFIG.weather.key) return simulateWeather();
+    try {
+      const res = await fetch(`${API_CONFIG.weather.url}?q=Johannesburg&units=metric&appid=${API_CONFIG.weather.key}`);
+      const json = await res.json();
+      return {
+        temp: json.main.temp,
+        humidity: json.main.humidity,
+        wind: json.wind.speed,
+        pressure: json.main.pressure
+      };
+    } catch (e) {
+      return simulateWeather();
+    }
+  }
+
+  async function fetchStocks() {
+    if (!API_CONFIG.stocks.key) return simulateStocks();
+    try {
+      const symbols = ['AAPL', 'TSLA', 'NVDA', 'MSFT'];
+      const promises = symbols.map(sym =>
+        fetch(`${API_CONFIG.stocks.url}?function=GLOBAL_QUOTE&symbol=${sym}&apikey=${API_CONFIG.stocks.key}`)
+          .then(r => r.json())
+      );
+      const results = await Promise.all(promises);
+      return {
+        aapl: parseFloat(results[0]?.['Global Quote']?.['05. price']) || 189.5,
+        tsla: parseFloat(results[1]?.['Global Quote']?.['05. price']) || 245.3,
+        nvda: parseFloat(results[2]?.['Global Quote']?.['05. price']) || 875.2,
+        msft: parseFloat(results[3]?.['Global Quote']?.['05. price']) || 378.9
+      };
+    } catch (e) {
+      return simulateStocks();
+    }
+  }
+
+  async function fetchCrypto() {
+    try {
+      const res = await fetch(`${API_CONFIG.crypto.url}?ids=bitcoin,ethereum,solana,dogecoin&vs_currencies=usd`);
+      const json = await res.json();
+      return {
+        btc: json.bitcoin?.usd || 64231.5,
+        eth: json.ethereum?.usd || 3452.1,
+        sol: json.solana?.usd || 142.8,
+        doge: json.dogecoin?.usd || 0.12
+      };
+    } catch (e) {
+      return simulateCrypto();
+    }
+  }
+
+  // Simulated data (fallback)
+  function simulateWeather() {
+    return {
+      temp: 22 + Math.sin(time * 0.005) * 3,
+      humidity: 65 + Math.cos(time * 0.003) * 5,
+      wind: 12 + Math.sin(time * 0.007) * 2,
+      pressure: 1013
+    };
+  }
+  function simulateStocks() {
+    return {
+      aapl: 189.5 + Math.sin(time * 0.002) * 5,
+      tsla: 245.3 + Math.cos(time * 0.003) * 8,
+      nvda: 875.2 + Math.sin(time * 0.0015) * 15,
+      msft: 378.9 + Math.cos(time * 0.0025) * 3
+    };
+  }
+  function simulateCrypto() {
+    return {
+      btc: 64231.5 + Math.sin(time * 0.001) * 500,
+      eth: 3452.1 + Math.cos(time * 0.002) * 30,
+      sol: 142.8 + Math.sin(time * 0.0025) * 5,
+      doge: 0.12 + Math.sin(time * 0.005) * 0.02
+    };
+  }
+
+  async function refreshAllData() {
+    const [weather, stocks, crypto] = await Promise.all([
+      fetchWeather(), fetchStocks(), fetchCrypto()
+    ]);
+    data.weather = weather;
+    data.stocks = stocks;
+    data.crypto = crypto;
+    notifyCallbacks('weather', weather);
+    notifyCallbacks('stocks', stocks);
+    notifyCallbacks('crypto', crypto);
+  }
+
+  function notifyCallbacks(source, value) {
+    dataCallbacks[source].forEach(cb => cb(value));
+  }
+
+  function subscribe(source, callback) {
+    dataCallbacks[source].push(callback);
+    return () => {
+      dataCallbacks[source] = dataCallbacks[source].filter(cb => cb !== callback);
+    };
+  }
+
+  // Audio visualization
+  async function initAudio() {
+    try {
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      analyser = audioContext.createAnalyser();
+      analyser.fftSize = 256;
+      audioData = new Uint8Array(analyser.frequencyBinCount);
+
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const source = audioContext.createMediaStreamSource(stream);
+      source.connect(analyser);
+
+      // Update audio data periodically
+      setInterval(() => {
+        if (analyser && audioData) {
+          analyser.getByteFrequencyData(audioData);
+          data.audio = Array.from(audioData).map(v => (v / 255) * 100);
+          notifyCallbacks('audio', data.audio);
+        }
+      }, 100);
+    } catch (e) {
+      console.log('Audio access denied, using simulated audio');
+      data.audio = Array(64).fill(0).map(() => Math.random() * 100);
+    }
+  }
+
+  function hexToRgb(hex) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return { r, g, b };
+  }
 
   function resize() {
     const rect = canvas.parentElement.getBoundingClientRect();
@@ -42,7 +195,7 @@ function initGenerativeArt() {
     canvas.height = rect.height * dpr;
     canvas.style.width = rect.width + 'px';
     canvas.style.height = rect.height + 'px';
-    ctx.scale(dpr, dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     canvas.dataset.logicalWidth = rect.width;
     canvas.dataset.logicalHeight = rect.height;
     initParticles();
@@ -69,40 +222,18 @@ function initGenerativeArt() {
   function getDataValues(source) {
     switch (source) {
       case 'weather':
-        return {
-          temp: data.weather.temp + Math.sin(time * 0.005) * 3,
-          humidity: data.weather.humidity + Math.cos(time * 0.003) * 5,
-          wind: data.weather.wind + Math.sin(time * 0.007) * 2,
-          pressure: data.weather.pressure
-        };
+        return data.weather;
       case 'stocks':
-        return {
-          aapl: data.stocks.aapl + Math.sin(time * 0.002) * 5,
-          tsla: data.stocks.tsla + Math.cos(time * 0.003) * 8,
-          nvda: data.stocks.nvda + Math.sin(time * 0.0015) * 15,
-          msft: data.stocks.msft + Math.cos(time * 0.0025) * 3
-        };
+        return data.stocks;
       case 'crypto':
-        return {
-          btc: data.crypto.btc + Math.sin(time * 0.001) * 500,
-          eth: data.crypto.eth + Math.cos(time * 0.002) * 30,
-          sol: data.crypto.sol + Math.sin(time * 0.0025) * 5,
-          doge: data.crypto.doge + Math.sin(time * 0.005) * 0.02
-        };
+        return data.crypto;
       case 'audio':
-        return data.audio.map(() => Math.random() * 100);
+        return data.audio;
       case 'random':
-        return data.random.map(() => Math.random() * 100);
+        return data.random;
       default:
         return { temp: 22 };
     }
-  }
-
-  function hexToRgb(hex) {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return { r, g, b };
   }
 
   function draw() {
@@ -115,7 +246,7 @@ function initGenerativeArt() {
 
     ctx.clearRect(0, 0, w, h);
 
-    // Subtle background gradient
+    // Subtle background gradient matching site
     const grad = ctx.createRadialGradient(w * 0.5, h * 0.3, 0, w * 0.5, h * 0.3, Math.max(w, h));
     const baseColors = palettes.teal;
     grad.addColorStop(0, baseColors[0]);
@@ -170,7 +301,6 @@ function initGenerativeArt() {
       ctx.arc(p.x, p.y, p.radius * (1 + dataInfluence), 0, Math.PI * 2);
       ctx.fill();
 
-      // Connections
       if (i % 7 === 0) {
         const target = particles[(i + 7) % particles.length];
         if (target) {
@@ -301,12 +431,30 @@ function initGenerativeArt() {
   });
   ro.observe(canvas.parentElement);
 
-  // Start
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', start);
-  } else {
+  // Initialize
+  async function init() {
+    // Initial data fetch
+    await refreshAllData();
+
+    // Set up auto-refresh
+    setInterval(refreshAllData, 60000); // Every minute
+
+    // Init audio on user interaction
+    document.addEventListener('click', () => {
+      if (!audioContext) initAudio();
+    }, { once: true });
+
     start();
   }
 
-  window.initGenerativeArt = start;
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  // Expose for external control
+  window.generativeArt = { refreshAllData, subscribe, getData: () => data };
 }
+
+window.initGenerativeArt = initGenerativeArt;

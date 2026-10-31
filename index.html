@@ -17,6 +17,18 @@
 </head>
 <body class="webgl-loader-overlay">
 
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen" role="status" aria-label="Loading Ψ Digital Lab">
+    <div class="loading-inner">
+      <div class="loading-logo">FxΨ</div>
+      <div class="loading-counter" id="loading-counter">00</div>
+      <div class="loading-bar">
+        <div class="loading-progress" id="loading-progress"></div>
+      </div>
+      <p class="loading-text" id="loading-text">Initializing digital lab...</p>
+    </div>
+  </div>
+
   <!-- Background gradient matching WebGL -->
   <div id="bg-gradient" aria-hidden="true"></div>
   <div id="pre-canvas-99" aria-hidden="true">99</div>
@@ -25,7 +37,7 @@
   <canvas id="webgl" role="img" aria-label="Ψ Digital Lab interactive experience"></canvas>
 
   <!-- UI Container -->
-  <div id="ui-container" role="region" aria-label="Interface controls">
+  <div id="ui-container" role="region" aria-label="Interface controls" style="opacity: 0;">
 
     <!-- Navigation Bar -->
     <nav class="nav-bar" id="nav-bar">
@@ -45,7 +57,7 @@
     <!-- Main Content Areas (floating cards) -->
     <main class="main-content" id="main-content">
       <!-- Hero Section -->
-      <section class="hero-section" id="hero-section">
+      <section class="hero-section section-hidden" id="hero-section">
         <div class="hero-inner">
           <h1 class="hero-title">
             <span class="hero-name">Function Psi</span>
@@ -75,7 +87,7 @@
       </section>
 
       <!-- Tools Grid Section -->
-      <section class="tools-section" id="tools-section">
+      <section class="tools-section section-hidden" id="tools-section">
         <div class="section-header">
           <h2 class="section-title">Tools & Apps</h2>
           <p class="section-desc">Curated from across the web. Click to open.</p>
@@ -84,7 +96,7 @@
       </section>
 
       <!-- Generative Art Section -->
-      <section class="generative-section" id="generative-section">
+      <section class="generative-section section-hidden" id="generative-section">
         <div class="section-header">
           <h2 class="section-title">Generative Art System</h2>
           <p class="section-desc">Data-driven algorithmic art. Weather, stocks, crypto — rendered in motion.</p>
@@ -118,7 +130,7 @@
       </section>
 
       <!-- Personal API Section -->
-      <section class="api-section" id="api-section">
+      <section class="api-section section-hidden" id="api-section">
         <div class="section-header">
           <h2 class="section-title">Personal API</h2>
           <p class="section-desc">Single endpoint for Rendani Manugeni. Profile, skills, projects, socials.</p>
@@ -138,7 +150,7 @@
       </section>
 
       <!-- Portfolio Section -->
-      <section class="portfolio-section" id="portfolio-section">
+      <section class="portfolio-section section-hidden" id="portfolio-section">
         <div class="section-header">
           <h2 class="section-title">Portfolio</h2>
           <p class="section-desc">Projects, experiments, and things built.</p>
@@ -146,8 +158,11 @@
         <div class="portfolio-grid" id="portfolio-grid"></div>
       </section>
 
+      <!-- Dashboard Section -->
+      <section class="dashboard-section section-hidden" id="dashboard-section"></section>
+
       <!-- Footer -->
-      <footer class="footer" id="footer">
+      <footer class="footer section-hidden" id="footer">
         <div class="footer-inner">
           <div class="footer-brand">FxΨ</div>
           <p class="footer-copy">Built by Function Psi. <a href="https://x.com/fnpsi_" target="_blank" rel="noopener">@fnpsi_</a> · <a href="https://instagram.com/fnpsi" target="_blank" rel="noopener">fnpsi</a> · <a href="https://youtube.com/@fnpsi" target="_blank" rel="noopener">@fnpsi</a></p>
@@ -193,18 +208,11 @@
   <script src="data/portfolio.js"></script>
 
   <!-- Modules -->
+  <script src="js/loader.js"></script>
   <script src="js/shader.js"></script>
   <script src="js/generative-art-full.js"></script>
   <script src="js/api.js"></script>
   <script src="js/ui.js"></script>
-  <script>
-    // Boot
-    window.addEventListener('DOMContentLoaded', () => {
-      initShader();
-      initGenerativeArt();
-      initAPI();
-      initUI();
-    });
-  </script>
+  <script src="js/dashboard.js"></script>
 </body>
 </html>
