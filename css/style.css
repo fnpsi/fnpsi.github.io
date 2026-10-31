@@ -913,6 +913,119 @@ html.light .taskbar { background: rgba(248, 250, 252, 0.75); }
   box-shadow: var(--neon-glow);
 }
 
+/* ==========================================================================
+   Code Editor App
+   ========================================================================== */
+
+.editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-2);
+}
+.editor-tabs {
+  display: flex;
+  gap: 2px;
+}
+.editor-tab {
+  padding: 6px 12px;
+  border-radius: 6px 6px 0 0;
+  border: 1px solid var(--border);
+  border-bottom: none;
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+.editor-tab.active {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+.editor-tab:hover:not(.active) {
+  background: var(--surface);
+  color: var(--text);
+}
+.editor-actions {
+  display: flex;
+  gap: 8px;
+}
+.editor-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  transition: all 0.15s;
+}
+.editor-btn:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+.editor-btn.primary {
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: #fff;
+  border-color: var(--brand);
+  box-shadow: var(--neon-glow);
+}
+
+.editor-pane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: #05060b;
+}
+.editor-code {
+  flex: 1;
+  width: 100%;
+  background: #05060b;
+  color: #e8eaf2;
+  border: none;
+  outline: none;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  padding: 12px;
+  resize: none;
+  box-sizing: border-box;
+}
+.editor-code::placeholder {
+  color: #5b6480;
+}
+.editor-preview {
+  flex: 1;
+  width: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.editor-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #000;
+}
+.hidden { display: none !important; }
+
+.editor-status {
+  height: 24px;
+  padding: 4px 12px;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  background: var(--surface-2);
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+}
+
 /* ---- COOL MODE (easter egg) ---- */
 [data-cool-mode="on"] .mesh-bg,
 [data-cool-mode="on"] .shader-bg {

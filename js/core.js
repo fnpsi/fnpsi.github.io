@@ -33,6 +33,7 @@ class WindowManager {
     this.apps = {
       'tool-vault': { title: 'Tool Vault', icon: '🛠️', render: renderToolVault },
       'psi-generator': { title: 'Ψ Generator', icon: '✨', render: renderGenerator },
+      'code-editor': { title: 'Code Editor', icon: '💻', render: renderCodeEditor },
       'portfolio': { title: 'Portfolio Archive', icon: '📁', render: renderPortfolio },
       'course-catalog': { title: 'Course Catalog', icon: '🎓', render: renderCourseCatalog },
       'settings': { title: 'Settings', icon: '⚙️', render: renderSettings }
