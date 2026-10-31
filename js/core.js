@@ -39,6 +39,8 @@ class WindowManager {
       'notes': { title: 'Notes', icon: '📝', render: renderNotes },
       'calculator': { title: 'Calculator', icon: '🧮', render: renderCalculator },
       'system-monitor': { title: 'System Monitor', icon: '📊', render: renderSystemMonitor },
+      'personal-api': { title: 'Personal API', icon: '🔌', render: renderPersonalAPI },
+      'generative-art': { title: 'Generative Art', icon: '🎨', render: renderGenerativeArt },
       'portfolio': { title: 'Portfolio Archive', icon: '📁', render: renderPortfolio },
       'course-catalog': { title: 'Course Catalog', icon: '🎓', render: renderCourseCatalog },
       'settings': { title: 'Settings', icon: '⚙️', render: renderSettings }
