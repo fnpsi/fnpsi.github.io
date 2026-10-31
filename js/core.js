@@ -50,6 +50,7 @@ class WindowManager {
     this.renderDesktopIcons();
     this.bindStartMenu();
     this.bindTaskbar();
+    this.bindSocialOverlay();
     this.bindCoolEasterEgg();
     this.bindGlobal();
     this.openApp('tool-vault', true); // boot with one app open
@@ -191,13 +192,14 @@ class WindowManager {
     this.overlay.classList.add('open');
     this.closeStart();
   }
-  (() => {
-    const closeSocial = () => { document.getElementById('overlay').classList.remove('open'); };
-    document.getElementById('overlay-close').addEventListener('click', closeSocial);
-    document.getElementById('overlay').addEventListener('click', (e) => {
-      if (e.target === document.getElementById('overlay')) closeSocial();
+
+  bindSocialOverlay() {
+    const closeSocial = () => { this.overlay.classList.remove('open'); };
+    this.overlayClose.addEventListener('click', closeSocial);
+    this.overlay.addEventListener('click', (e) => {
+      if (e.target === this.overlay) closeSocial();
     });
-  })();
+  }
 
   /* ---------- Windows ---------- */
   openApp(appId, forceNew = false) {
