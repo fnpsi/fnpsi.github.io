@@ -77,11 +77,20 @@ input { font-family: inherit; }
 .shader-bg {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: -1;
   width: 100vw;
   height: 100vh;
   pointer-events: none;
   display: block;
+}
+
+.desktop {
+  position: relative;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg-desktop);
+  overflow: hidden;
 }
 
 /* ---- Scanlines overlay ---- */
@@ -97,15 +106,6 @@ input { font-family: inherit; }
   background-size: 100% 4px;
   opacity: 0.35;
   mix-blend-mode: overlay;
-}
-
-/* ---- Desktop ---- */
-.desktop {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  background: var(--bg-desktop);
-  overflow: hidden;
 }
 
 /* ---- Start Menu ---- */
