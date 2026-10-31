@@ -2,127 +2,208 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Function Psi | Ψ Digital Lab</title>
   <meta name="description" content="One of the coolest websites out there — Function Psi's digital playground of tools, generators, and experiments." />
+  <meta name="color-scheme" content="light only" />
+  <meta name="supported-color-schemes" content="light" />
+  <meta name="darkreader-lock" />
+  <meta name="theme-color" content="#1c4839" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Google+Sans+Code:wght@400;700&family=Inter:wght@400;500;600;700;800&family=Newsreader:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
-  <!-- Three.js for WebGL shader background (free CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.min.js"></script>
 </head>
-<body data-cool-mode="off">
+<body class="webgl-loader-overlay">
 
-  <!-- ============ DESKTOP ============ -->
-  <div class="desktop" id="desktop">
-    <!-- Shader background canvas -->
-    <canvas id="shader-bg" class="shader-bg"></canvas>
+  <!-- Background gradient matching WebGL -->
+  <div id="bg-gradient" aria-hidden="true"></div>
+  <div id="pre-canvas-99" aria-hidden="true">99</div>
 
-    <div class="scanlines" id="scanlines"></div>
+  <!-- WebGL Canvas -->
+  <canvas id="webgl" role="img" aria-label="Ψ Digital Lab interactive experience"></canvas>
 
-    <!-- Start Menu -->
-    <div class="start-menu" id="start-menu">
-      <div class="start-header">
-        <div class="start-avatar" id="start-avatar">FxΨ</div>
-        <div class="start-info">
-          <div class="start-name">Function Psi</div>
-          <div class="start-title">Digital Lab & Portfolio</div>
+  <!-- UI Container -->
+  <div id="ui-container" role="region" aria-label="Interface controls">
+
+    <!-- Navigation Bar -->
+    <nav class="nav-bar" id="nav-bar">
+      <div class="nav-left">
+        <a href="#" class="nav-logo" aria-label="Function Psi home">FxΨ</a>
+        <span class="nav-tagline">One of the coolest websites out there.</span>
+      </div>
+      <div class="nav-center" id="nav-center">
+        <!-- Menu buttons injected -->
+      </div>
+      <div class="nav-right">
+        <button class="nav-btn" id="nav-theme" aria-label="Toggle theme">🌓</button>
+        <button class="nav-btn" id="nav-social" aria-label="Social links">🔗</button>
+      </div>
+    </nav>
+
+    <!-- Main Content Areas (floating cards) -->
+    <main class="main-content" id="main-content">
+      <!-- Hero Section -->
+      <section class="hero-section" id="hero-section">
+        <div class="hero-inner">
+          <h1 class="hero-title">
+            <span class="hero-name">Function Psi</span>
+            <span class="hero-psi">Ψ</span>
+          </h1>
+          <p class="hero-desc">Digital playground of tools, generators, and experiments.</p>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span class="hero-stat-num" id="stat-tools">0</span>
+              <span class="hero-stat-label">Tools</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-num" id="stat-apps">0</span>
+              <span class="hero-stat-label">Apps</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-num" id="stat-projects">0</span>
+              <span class="hero-stat-label">Projects</span>
+            </div>
+          </div>
+          <div class="hero-actions">
+            <a href="#tools" class="hero-btn primary">Explore Tools</a>
+            <a href="#generative" class="hero-btn secondary">Generative Art</a>
+            <a href="#api" class="hero-btn secondary">Personal API</a>
+          </div>
         </div>
-        <button class="start-close" id="start-close" aria-label="Close start menu">✕</button>
-      </div>
-      <div class="start-search">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="start-search" placeholder="Search apps, tools, projects…" aria-label="Search apps" />
-      </div>
-      <div class="start-apps" id="start-apps"></div>
-      <div class="start-footer">
-        <button class="start-btn" id="start-theme" title="Toggle theme">🌓 Theme</button>
-        <button class="start-btn" id="start-social" title="Social links">🔗 Socials</button>
+      </section>
+
+      <!-- Tools Grid Section -->
+      <section class="tools-section" id="tools-section">
+        <div class="section-header">
+          <h2 class="section-title">Tools & Apps</h2>
+          <p class="section-desc">Curated from across the web. Click to open.</p>
+        </div>
+        <div class="tools-grid" id="tools-grid" role="grid" aria-label="Tools"></div>
+      </section>
+
+      <!-- Generative Art Section -->
+      <section class="generative-section" id="generative-section">
+        <div class="section-header">
+          <h2 class="section-title">Generative Art System</h2>
+          <p class="section-desc">Data-driven algorithmic art. Weather, stocks, crypto — rendered in motion.</p>
+        </div>
+        <div class="generative-canvas-wrap">
+          <canvas id="generative-canvas" class="generative-canvas"></canvas>
+        </div>
+        <div class="generative-controls" id="generative-controls">
+          <select id="gen-source" class="gen-select">
+            <option value="weather">Weather Patterns</option>
+            <option value="stocks">Stock Prices</option>
+            <option value="crypto">Crypto Prices</option>
+            <option value="audio">Audio Wave</option>
+            <option value="random">Pure Random</option>
+          </select>
+          <select id="gen-algo" class="gen-select">
+            <option value="particles">Particle Flow</option>
+            <option value="waveform">Waveform</option>
+            <option value="voronoi">Voronoi Cells</option>
+            <option value="spiral">Data Spiral</option>
+          </select>
+          <select id="gen-palette" class="gen-select">
+            <option value="psi">Ψ Violet/Cyan</option>
+            <option value="teal">ZERO Teal</option>
+            <option value="neon">Neon Midnight</option>
+            <option value="sunset">Sunset</option>
+            <option value="matrix">Matrix</option>
+          </select>
+          <button class="gen-btn" id="gen-export">Export Image</button>
+        </div>
+      </section>
+
+      <!-- Personal API Section -->
+      <section class="api-section" id="api-section">
+        <div class="section-header">
+          <h2 class="section-title">Personal API</h2>
+          <p class="section-desc">Single endpoint for Rendani Manugeni. Profile, skills, projects, socials.</p>
+        </div>
+        <div class="api-layout">
+          <aside class="api-sidebar" id="api-sidebar">
+            <div class="api-section-title">Endpoints</div>
+            <div class="api-endpoint-list" id="api-endpoint-list"></div>
+          </aside>
+          <div class="api-main">
+            <div class="api-json-view" id="api-json-view"></div>
+            <div class="api-actions">
+              <button class="api-btn" id="api-copy">Copy JSON</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Portfolio Section -->
+      <section class="portfolio-section" id="portfolio-section">
+        <div class="section-header">
+          <h2 class="section-title">Portfolio</h2>
+          <p class="section-desc">Projects, experiments, and things built.</p>
+        </div>
+        <div class="portfolio-grid" id="portfolio-grid"></div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer" id="footer">
+        <div class="footer-inner">
+          <div class="footer-brand">FxΨ</div>
+          <p class="footer-copy">Built by Function Psi. <a href="https://x.com/fnpsi_" target="_blank" rel="noopener">@fnpsi_</a> · <a href="https://instagram.com/fnpsi" target="_blank" rel="noopener">fnpsi</a> · <a href="https://youtube.com/@fnpsi" target="_blank" rel="noopener">@fnpsi</a></p>
+          <p class="footer-note">One of the coolest websites out there.</p>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Floating Modals -->
+    <div class="modal-overlay" id="social-modal">
+      <div class="modal-card">
+        <button class="modal-close" id="social-close" aria-label="Close">✕</button>
+        <h3>Connect</h3>
+        <div class="modal-social">
+          <a href="https://x.com/fnpsi_" target="_blank" rel="noopener" class="modal-social-link">𝕏 @fnpsi_</a>
+          <a href="https://instagram.com/fnpsi" target="_blank" rel="noopener" class="modal-social-link">📷 fnpsi</a>
+          <a href="https://youtube.com/@fnpsi" target="_blank" rel="noopener" class="modal-social-link">▶️ @fnpsi</a>
+          <a href="https://github.com/fnpsi" target="_blank" rel="noopener" class="modal-social-link">GitHub fnpsi</a>
+        </div>
       </div>
     </div>
 
-    <div class="start-backdrop" id="start-backdrop"></div>
-
-    <!-- Window stack -->
-    <div class="windows" id="windows"></div>
-
-    <!-- Desktop icons -->
-    <div class="desktop-icons" id="desktop-icons"></div>
-  </div>
-
-  <!-- Toast notification -->
-  <div class="toast" id="toast"></div>
-
-  <!-- ============ TASKBAR ============ -->
-  <div class="taskbar" id="taskbar">
-    <button class="taskbar-start" id="taskbar-start" aria-label="Open start menu">
-      <span class="tb-logo" id="tb-logo">FxΨ</span>
-    </button>
-
-    <div class="taskbar-apps" id="taskbar-apps"></div>
-
-    <div class="taskbar-spacer"></div>
-
-    <div class="taskbar-system">
-      <button class="sys-btn" id="sys-theme" title="Toggle dark/light theme">🌓</button>
-      <button class="sys-btn" id="sys-social" title="Social links">🔗</button>
-      <div class="sys-clock" id="sys-clock">--:--</div>
-      <div class="sys-date" id="sys-date"></div>
-    </div>
-  </div>
-
-  <!-- Social overlay -->
-  <div class="overlay" id="overlay">
-    <div class="overlay-card" id="social-card">
-      <button class="overlay-close" id="overlay-close">✕</button>
-      <h3>Connect with Function Psi</h3>
-      <p>Follow across the web</p>
-      <div class="social-group">
-        <a href="https://x.com/fnpsi_" target="_blank" rel="noopener" class="social-link">
-          <span class="s-icon">𝕏</span>
-          <span class="s-label">X / Twitter</span>
-          <span class="s-value">@fnpsi_</span>
-        </a>
-        <a href="https://instagram.com/fnpsi" target="_blank" rel="noopener" class="social-link">
-          <span class="s-icon">📷</span>
-          <span class="s-label">Instagram</span>
-          <span class="s-value">fnpsi</span>
-        </a>
-        <a href="https://youtube.com/@fnpsi" target="_blank" rel="noopener" class="social-link">
-          <span class="s-icon">▶️</span>
-          <span class="s-label">YouTube</span>
-          <span class="s-value">@fnpsi</span>
-        </a>
+    <div class="modal-overlay" id="tool-modal">
+      <div class="modal-card tool-modal-card">
+        <button class="modal-close" id="tool-close" aria-label="Close">✕</button>
+        <div class="tool-modal-header">
+          <div class="tool-modal-avatar" id="tool-modal-avatar"></div>
+          <div>
+            <h3 id="tool-modal-title"></h3>
+            <p id="tool-modal-category" class="tool-modal-category"></p>
+          </div>
+        </div>
+        <p id="tool-modal-desc" class="tool-modal-desc"></p>
+        <div class="tool-modal-tags" id="tool-modal-tags"></div>
+        <a id="tool-modal-link" class="tool-modal-link" target="_blank" rel="noopener">Open Tool →</a>
       </div>
-      <div class="divider"></div>
-      <p class="note">Built & owned by Function Psi (FxΨ)</p>
     </div>
+
   </div>
 
   <!-- Data -->
   <script src="data/tools.json"></script>
   <script src="data/portfolio.js"></script>
-  <!-- Shader controller -->
+
+  <!-- Modules -->
   <script src="js/shader.js"></script>
-  <!-- App logic -->
-  <script src="js/core.js"></script>
-  <script src="js/editor.js"></script>
-  <script src="js/terminal.js"></script>
-  <script src="js/filemanager.js"></script>
-  <script src="js/notes.js"></script>
-  <script src="js/calculator.js"></script>
-  <script src="js/system.js"></script>
-  <script src="js/settings.js"></script>
-  <script src="js/personal-api.js"></script>
-  <script src="js/generative-art.js"></script>
-  <script src="js/apps.js"></script>
-  <script src="js/generator.js"></script>
+  <script src="js/generative-art-full.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
   <script>
+    // Boot
     window.addEventListener('DOMContentLoaded', () => {
-      const wm = new WindowManager();
-      window.wmInstance = wm;
-      wm.boot();
+      initShader();
+      initGenerativeArt();
+      initAPI();
+      initUI();
     });
   </script>
 </body>
