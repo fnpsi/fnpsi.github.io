@@ -1,0 +1,208 @@
+window.toolsData = {
+  "tools": [
+    {
+      "id": 1,
+      "name": "GitHub",
+      "category": "Development",
+      "description": "Version control and collaboration platform.",
+      "url": "https://github.com",
+      "emoji": "🐙",
+      "tags": ["git", "code", "hosting"],
+      "featured": true
+    },
+    {
+      "id": 2,
+      "name": "MDN Web Docs",
+      "category": "Development",
+      "description": "Web developer reference for HTML, CSS, JavaScript, and APIs.",
+      "url": "https://developer.mozilla.org",
+      "emoji": "📘",
+      "tags": ["html", "css", "javascript", "docs"]
+    },
+    {
+      "id": 3,
+      "name": "Stack Overflow",
+      "category": "Development",
+      "description": "Developer Q&A community.",
+      "url": "https://stackoverflow.com",
+      "emoji": "💬",
+      "tags": ["qa", "programming"]
+    },
+    {
+      "id": 4,
+      "name": "Can I use",
+      "category": "Development",
+      "description": "Browser compatibility tables for front-end technologies.",
+      "url": "https://caniuse.com",
+      "emoji": "🧪",
+      "tags": ["compatibility", "browsers"]
+    },
+    {
+      "id": 5,
+      "name": "CodePen",
+      "category": "Development",
+      "description": "Front-end playground and showcase.",
+      "url": "https://codepen.io",
+      "emoji": "🖋️",
+      "tags": ["frontend", "sandbox"]
+    },
+    {
+      "id": 6,
+      "name": "Replit",
+      "category": "Development",
+      "description": "Online IDE and collaborative coding platform.",
+      "url": "https://replit.com",
+      "emoji": "💻",
+      "tags": ["ide", "hosting"]
+    },
+    {
+      "id": 7,
+      "name": "Figma",
+      "category": "Design",
+      "description": "Collaborative interface design and prototyping.",
+      "url": "https://figma.com",
+      "emoji": "🎨",
+      "tags": ["ui", "ux", "prototype"],
+      "featured": true
+    },
+    {
+      "id": 8,
+      "name": "Canva",
+      "category": "Design",
+      "description": "Drag-and-drop graphic design platform.",
+      "url": "https://canva.com",
+      "emoji": "🖼️",
+      "tags": ["graphics", "social"]
+    },
+    {
+      "id": 9,
+      "name": "Coolors",
+      "category": "Design",
+      "description": "Fast color scheme generator.",
+      "url": "https://coolors.co",
+      "emoji": "🎨",
+      "tags": ["color", "palette"]
+    },
+    {
+      "id": 10,
+      "name": "Unsplash",
+      "category": "Design",
+      "description": "Free high-resolution photos.",
+      "url": "https://unsplash.com",
+      "emoji": "📸",
+      "tags": ["photos", "free"]
+    },
+    {
+      "id": 11,
+      "name": "Notion",
+      "category": "Productivity",
+      "description": "All-in-one workspace for notes, tasks, and databases.",
+      "url": "https://notion.so",
+      "emoji": "📝",
+      "tags": ["notes", "wiki", "database"]
+    },
+    {
+      "id": 12,
+      "name": "Trello",
+      "category": "Productivity",
+      "description": "Visual project management with boards and cards.",
+      "url": "https://trello.com",
+      "emoji": "✅",
+      "tags": ["kanban", "tasks"]
+    },
+    {
+      "id": 13,
+      "name": "Todoist",
+      "category": "Productivity",
+      "description": "To-do list and task manager.",
+      "url": "https://todoist.com",
+      "emoji": "☑️",
+      "tags": ["todo", "productivity"]
+    },
+    {
+      "id": 14,
+      "name": "Smallpdf",
+      "category": "Utilities",
+      "description": "Online PDF compress, convert, merge, and edit.",
+      "url": "https://smallpdf.com",
+      "emoji": "📄",
+      "tags": ["pdf", "convert"]
+    },
+    {
+      "id": 15,
+      "name": "Web Archive",
+      "category": "Utilities",
+      "description": "Historical snapshots of websites (Wayback Machine).",
+      "url": "https://web.archive.org",
+      "emoji": "🕰️",
+      "tags": ["archive", "history"]
+    },
+    {
+      "id": 16,
+      "name": "10 Minute Mail",
+      "category": "Utilities",
+      "description": "Temporary disposable email address.",
+      "url": "https://10minutemail.com",
+      "emoji": "📧",
+      "tags": ["email", "privacy"]
+    },
+    {
+      "id": 17,
+      "name": "freeCodeCamp",
+      "category": "Learning",
+      "description": "Free coding courses and certifications.",
+      "url": "https://freecodecamp.org",
+      "emoji": "🏫",
+      "tags": ["coding", "free"],
+      "featured": true
+    },
+    {
+      "id": 18,
+      "name": "edX",
+      "category": "Learning",
+      "description": "University-level online courses (Harvard, MIT, etc).",
+      "url": "https://edx.org",
+      "emoji": "🎓",
+      "tags": ["courses", "university"]
+    },
+    {
+      "id": 19,
+      "name": "ChatGPT",
+      "category": "AI & ML",
+      "description": "Conversational AI assistant for writing, coding, and analysis.",
+      "url": "https://chat.openai.com",
+      "emoji": "🤖",
+      "tags": ["ai", "chat"],
+      "featured": true
+    },
+    {
+      "id": 20,
+      "name": "Perplexity AI",
+      "category": "AI & ML",
+      "description": "AI answer engine with real-time citations.",
+      "url": "https://perplexity.ai",
+      "emoji": "🔍",
+      "tags": ["ai", "search", "research"]
+    },
+    {
+      "id": 21,
+      "name": "Hugging Face",
+      "category": "AI & ML",
+      "description": "Machine learning models, datasets, and demos.",
+      "url": "https://huggingface.co",
+      "emoji": "🤗",
+      "tags": ["ml", "models", "datasets"]
+    },
+    {
+      "id": 22,
+      "name": "CSS-Tricks",
+      "category": "Development",
+      "description": "Articles and almanacs on CSS and front-end development.",
+      "url": "https://css-tricks.com",
+      "emoji": "💅",
+      "tags": ["css", "frontend"]
+    }
+  ],
+
+  "sources": []
+};
