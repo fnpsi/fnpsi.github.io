@@ -1,0 +1,33 @@
+# Dependabot configuration for Function Psi Digital Lab
+# Updates GitHub Actions workflows weekly
+# See: https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "[deps]"
+      include: "scope"
+    open-pull-requests-limit: 5
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+    ignore:
+      # Ignore major version updates for actions (manual review)
+      - dependency-name: "*"
+        update-type: "version-update:semver-major"
+
+# Optional: If you add a package.json later for build tooling, uncomment:
+# - package-ecosystem: "npm"
+#   directory: "/"
+#   schedule:
+#     interval: "weekly"

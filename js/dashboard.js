@@ -1,21 +1,11 @@
 /* ==========================================================================
    Function Psi — Dashboard
-   Consumes Personal API endpoints, real-time widgets
+   Consumes Personal API endpoints, real-time widgets via realtimeDashboard
    ========================================================================== */
 
 function initDashboard() {
   const container = document.getElementById('dashboard-section');
   if (!container) return;
-
-  const ENDPOINTS = {
-    profile: '/api/profile',
-    skills: '/api/skills',
-    projects: '/api/projects',
-    stats: '/api/stats',
-    socials: '/api/socials'
-  };
-
-  let widgets = {};
 
   container.innerHTML = `
     <div class="section-header">
@@ -90,34 +80,44 @@ function initDashboard() {
     </div>
   `;
 
-  async function fetchEndpoint(path) {
-    try {
-      const res = await fetch(path);
-      return await res.json();
-    } catch (e) {
-      console.warn(`Failed to fetch ${path}:`, e);
-      return null;
-    }
+  // Wait for realtimeDashboard to be ready
+  function waitForRealtime() {
+    return new Promise((resolve) => {
+      if (window.realtimeDashboard) {
+        resolve(window.realtimeDashboard);
+      } else {
+        const check = setInterval(() => {
+          if (window.realtimeDashboard) {
+            clearInterval(check);
+            resolve(window.realtimeDashboard);
+          }
+        }, 50);
+      }
+    });
   }
 
-  async function loadAll() {
-    const [profile, stats, skills, projects, socials] = await Promise.all([
-      fetchEndpoint(ENDPOINTS.profile),
-      fetchEndpoint(ENDPOINTS.stats),
-      fetchEndpoint(ENDPOINTS.skills),
-      fetchEndpoint(ENDPOINTS.projects),
-      fetchEndpoint(ENDPOINTS.socials)
-    ]);
+  waitForRealtime().then((realtime) => {
+    // Subscribe to live metrics
+    realtime.on('live', (metrics) => {
+      renderLive(metrics);
+    });
 
-    if (profile) renderProfile(profile);
-    if (stats) renderStats(stats);
-    if (skills) renderSkills(skills);
-    if (projects) renderProjects(projects);
-    if (socials) renderSocials(socials);
+    // Subscribe to API data
+    realtime.on('api', (data) => {
+      if (data.profile) renderProfile(data.profile);
+      if (data.stats) renderStats(data.stats);
+      if (data.skills) renderSkills(data.skills);
+      if (data.projects) renderProjects(data.projects);
+      if (data.socials) renderSocials(data.socials);
+    });
 
-    // Start live updates
-    startLiveUpdates();
-  }
+    // Subscribe to generative updates
+    realtime.on('generative', (data) => {
+      console.log('Generative art refreshed:', data);
+    });
+
+    // Initial render (will be populated when events fire)
+  });
 
   function renderProfile(p) {
     document.getElementById('dash-avatar').textContent = p.avatar || 'FxΨ';
@@ -183,58 +183,27 @@ function initDashboard() {
     `).join('');
   }
 
-  function startLiveUpdates() {
-    // Update live metrics every 5 seconds
+  function renderLive(metrics) {
     const liveEl = document.getElementById('dash-live');
     const indicator = document.getElementById('live-indicator');
 
-    function updateLive() {
-      const now = new Date();
-      const metrics = [
-        { label: 'Time', value: now.toLocaleTimeString() },
-        { label: 'Uptime', value: formatUptime(Date.now() - performance.now()) },
-        { label: 'Memory', value: formatMemory() },
-        { label: 'FPS', value: Math.floor(55 + Math.random() * 10) }
-      ];
+    const items = [
+      { label: 'Time', value: metrics.time },
+      { label: 'Uptime', value: metrics.uptime },
+      { label: 'Memory', value: metrics.memory },
+      { label: 'FPS', value: metrics.fps }
+    ];
 
-      liveEl.innerHTML = metrics.map(m => `
-        <div class="live-metric">
-          <span class="live-label">${m.label}</span>
-          <span class="live-value">${m.value}</span>
-        </div>
-      `).join('');
+    liveEl.innerHTML = items.map(m => `
+      <div class="live-metric">
+        <span class="live-label">${m.label}</span>
+        <span class="live-value">${m.value}</span>
+      </div>
+    `).join('');
 
-      // Pulse indicator
-      indicator.classList.toggle('pulse');
-    }
-
-    updateLive();
-    setInterval(updateLive, 5000);
-
-    // Refresh API data every 30 seconds
-    setInterval(loadAll, 30000);
+    // Pulse indicator
+    indicator.classList.toggle('pulse');
   }
-
-  function formatUptime(ms) {
-    const s = Math.floor(ms / 1000);
-    const h = Math.floor(s / 3600);
-    const m = Math.floor((s % 3600) / 60);
-    return `${h}h ${m}m`;
-  }
-
-  function formatMemory() {
-    if (performance.memory) {
-      const used = Math.round(performance.memory.usedJSHeapSize / 1024 / 1024);
-      return `${used} MB`;
-    }
-    return 'N/A';
-  }
-
-  // Load initial data
-  loadAll();
-
-  // Expose refresh
-  window.dashboard = { refresh: loadAll };
 }
 
 // Auto-init

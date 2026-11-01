@@ -60,6 +60,7 @@ function renderTerminal(container) {
   uptime     System uptime
   apps       List installed apps
   open <app> Open an app
+  api <endpoint> Query Personal API (profile, stats, skills, projects, socials)
   sudo       ...you wish
   cool       Activate cool mode`;
 
@@ -248,6 +249,37 @@ function renderTerminal(container) {
         document.body.dataset.coolMode = document.body.dataset.coolMode === 'on' ? 'off' : 'on';
         printSuccess(document.body.dataset.coolMode === 'on' ? 'COOL MODE ACTIVATED' : 'Cool mode deactivated');
         break;
+      case 'api': {
+        const endpoint = args[0];
+        if (!endpoint) {
+          printError('api: missing endpoint');
+          print('Available endpoints:');
+          print('  profile   Personal profile');
+          print('  stats     System statistics');
+          print('  skills    Skills and levels');
+          print('  projects  Project list');
+          print('  socials   Social media links');
+          print('  all       All endpoints');
+          break;
+        }
+        const endpoints = endpoint === 'all'
+          ? ['profile', 'stats', 'skills', 'projects', 'socials']
+          : [endpoint];
+        Promise.all(endpoints.map(ep =>
+          fetch(`/api/${ep}`).then(r => r.ok ? r.json() : null).catch(() => null)
+        )).then(results => {
+          results.forEach((data, i) => {
+            if (data) {
+              printInfo(`=== /api/${endpoints[i]} ===`);
+              print(JSON.stringify(data, null, 2));
+            } else {
+              printError(`Failed to fetch /api/${endpoints[i]}`);
+            }
+          });
+          newPrompt();
+        });
+        return; // Don't call newPrompt() here, we do it in the promise
+      }
       default:
         if (command) {
           printError(`bash: ${command}: command not found`);
