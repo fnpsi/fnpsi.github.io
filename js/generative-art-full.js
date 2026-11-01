@@ -49,8 +49,8 @@ function initGenerativeArt() {
 
   // API Configuration - Replace with your keys
   const API_CONFIG = {
-    weather: { key: '', url: 'https://api.openweathermap.org/data/2.5/weather' },
-    stocks: { key: '', url: 'https://www.alphavantage.co/query' },
+    weather: { key: 'bd5e378503939ddaee76f12ad7a97608', url: 'https://api.openweathermap.org/data/2.5/weather' },
+    stocks: { key: 'N9ZNL0UQXK0VQ59M', url: 'https://www.alphavantage.co/query' },
     crypto: { key: '', url: 'https://api.coingecko.com/api/v3/simple/price' }
   };
 
