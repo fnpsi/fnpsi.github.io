@@ -1,73 +1,61 @@
-# Function Psi — Ψ Digital Lab
+# FxΨ
 
-> **One of the coolest websites out there.**
+**Function Psi**  
+Digital lab. Immersive playground. One of the coolest websites out there.
 
-A desktop-style personal website / web app for **Function Psi**. Mix of **why.university** (playful, experimental) and **v0.dev** (generative UI builder). Runs entirely on GitHub Pages — no build step.
+---
 
-## Live
+This is not a portfolio. It is not a resume. It is a *place*.
 
-`https://fnpsi.github.io`
+A desktop inside a browser. A WebGL ocean of teal and violet. A single endpoint for Rendani Manugeni — name, socials, skills, projects, stats — served from `/api`. Generative art that breathes with live weather, stock prices, and crypto feeds. A terminal that answers back.
 
-## What's inside
+Welcome to the lab.
 
-| App | What it does |
-|-----|--------------|
-| **Tool Vault** | 22+ curated tools across Development, Design, Productivity, Utilities, Learning, AI & ML. Filter by category, click to open. |
-| **Ψ Generator** | v0-style chat: describe a mini tool (button, todo list, dice roller, gradient text), get live HTML/CSS/JS preview + copy code. |
-| **Portfolio Archive** | Your projects, bio, and social links (X @fnpsi_, IG fnpsi, YT @fnpsi). |
-| **Course Catalog** | why.university-style experimental "degrees." |
-| **Settings** | Dark/light theme toggle. |
+---
 
-Desktop OS feel: draggable/resizable windows, taskbar, start menu, desktop icons, window minimize/close, neon glassmorphism, and animated mesh background.
+## The Vibe
 
-## 🕹️ Easter egg
+Green-on-black. Terminal fonts. Scanlines. A “99” counting up in the corner before the canvas takes over. The site loads like software booting — not a webpage, but a system waking up.
 
-Click the **FxΨ logo** (taskbar or start menu) **5 times** to activate **Cool Mode** — rainbow window borders, spinning logo, and intensified scanlines. Click 5 more times to deactivate.
+Inspired by *why.zero.university*: WebGL-first, immersive, light-only color-scheme locked, gradient backgrounds that match the canvas pixel-for-pixel so nothing flashes. Experimental typography — Google Sans Code, Inter, Newsreader, Caveat.
 
-## Deploy to GitHub Pages
+Everything is clickable. Nothing is required.
 
-1. Create a repo named exactly `fnpsi.github.io` (all lowercase).
-2. Upload everything from this folder to the repo root.
-3. Settings → Pages → Source: "Deploy from a branch" → Branch: `main` → Folder: `/ (root)` → Save.
-4. Live at `https://fnpsi.github.io`.
+---
 
-## Adding your own projects
+## What Lives Here
 
-Edit `data/portfolio.js`:
+- **Ψ Generator** — describe a tool, watch it build itself in HTML/CSS/JS
+- **Personal API** — one endpoint, all of me: profile, skills, projects, socials
+- **Generative Art** — weather, stocks, crypto rendered as particles, waveforms, spirals
+- **Code Editor** — write, preview, export. A dev environment in a window
+- **Terminal** — `api all`, `neofetch`, `open <app>`, `cool`
+- **Dashboard** — live metrics, system stats, skill bars, social links
+- **File Manager** — a virtual filesystem in your browser
+- **Notes** — sticky notes that remember
 
-```js
-window.portfolioData = {
-  owner: "Function Psi",
-  social: {
-    x: "https://x.com/fnpsi_",
-    ig: "https://instagram.com/fnpsi",
-    yt: "https://youtube.com/@fnpsi"
-  },
-  projects: [
-    {
-      id: 10,
-      title: "My New Project",
-      category: "Web App",
-      description: "What it does.",
-      emoji: "🚀",
-      url: "https://yourproject.com",
-      github: "https://github.com/fnpsi/repo"
-    }
-  ]
-};
-```
+Click the **FxΨ** logo five times for Cool Mode.
 
-Push and Pages redeploys automatically.
+---
 
-## Adding tools
+## Who
 
-Edit `data/tools.json` and add entries to the `tools` array. Each tool needs: `id`, `name`, `category`, `description`, `url`, `emoji`, `tags`.
+**Rendani Manugeni**  
+Builder of weird, wonderful, and useful things on the internet.
 
-## Brand
+𝕏 @fnpsi_ · IG fnpsi · YT @fnpsi · GitHub fnpsi  
+South Africa · UTC+2
 
-- Owner: Function Psi
-- Logo: **FxΨ** (Function + Psi)
-- Colors: violet + cyan + magenta on dark slate
-- Tagline: One of the coolest websites out there.
+---
 
-MIT License — fork it, break it, rebuild it.
+## Philosophy
+
+Build in public. Make it immersive. Leave easter eggs.  
+If it doesn’t feel like a place, it’s not done.
+
+Fork it. Break it. Rebuild it. Make it cooler.
+
+---
+
+*One of the coolest websites out there.*  
+— Function Psi (FxΨ)
