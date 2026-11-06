@@ -1,0 +1,538 @@
+/* =========================================================
+   Function Psi — Aetherium: Live Spatial-Audio Instrument
+   ========================================================= */
+
+.aetherium {
+  --chrome-hue: 0;
+  --chrome-sat: 0%;
+  --chrome-light: 45%;
+}
+
+:root {
+  --aether-low: #ff6b45;
+  --aether-mid: #c9ff4a;
+  --aether-high: #70e7ff;
+  --aether-glow: rgba(201, 255, 74, 0.4);
+}
+
+/* ---------- Hero ---------- */
+
+.aetherium-hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 30%, rgba(201, 255, 74, 0.06), transparent 60%), var(--bg-deep);
+}
+
+.aetherium-canvas-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+#aetherium-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.aetherium-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--bg-deep);
+}
+
+.aetherium-fallback__chrome {
+  width: min(60vw, 400px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, hsl(0 0% 70%) 0%, hsl(0 0% 35%) 50%, hsl(0 0% 15%) 100%),
+    conic-gradient(from 0deg, hsl(0 0% 20%), hsl(0 0% 55%), hsl(0 0% 20%));
+  box-shadow:
+    inset 0 0 60px rgba(0,0,0,0.5),
+    0 0 80px -20px rgba(201, 255, 74, 0.15);
+  animation: aetherium-fallback-pulse 4s ease-in-out infinite;
+}
+
+@keyframes aetherium-fallback-pulse {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.02); filter: brightness(1.1); }
+}
+
+.aetherium-fallback__note {
+  margin-top: 2rem;
+  color: var(--quiet);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.aetherium-hero__ui {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: calc(var(--header-h) + 4rem) var(--pad) 4rem;
+  display: grid;
+  gap: 3rem;
+}
+
+.aetherium-hero__top {
+  text-align: center;
+}
+
+.aetherium-hero__top .eyebrow {
+  color: var(--aether-mid);
+}
+
+.aetherium-hero__top h1 {
+  font-size: clamp(4rem, 12vw, 14rem);
+  line-height: 0.75;
+  letter-spacing: -0.08em;
+  margin-top: 1rem;
+}
+
+.aetherium-hero__top h1 em {
+  color: var(--aether-mid);
+  font-family: var(--serif);
+  font-weight: 400;
+}
+
+.aetherium-hero__desc {
+  max-width: 40ch;
+  margin: 1.5rem auto 0;
+  color: var(--ink-dim);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  line-height: 1.6;
+}
+
+.aetherium-hero__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.aetherium-audio-toggle {
+  --btn-bg: transparent;
+  --btn-ink: var(--ink);
+  border-color: var(--line-strong);
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+}
+
+.aetherium-audio-toggle:hover,
+.aetherium-audio-toggle:focus-visible {
+  border-color: var(--aether-mid);
+  color: var(--aether-mid);
+}
+
+.aetherium-audio-toggle[aria-pressed="true"] {
+  --btn-bg: var(--aether-mid);
+  --btn-ink: #08090a;
+  border-color: var(--aether-mid);
+}
+
+.aetherium-audio-toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.aetherium-audio-toggle .btn__icon {
+  width: 1.2em;
+  height: 1.2em;
+  display: inline-flex;
+  place-items: center;
+  animation: aetherium-pulse-ring 2s ease-out infinite;
+}
+
+@keyframes aetherium-pulse-ring {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+.aetherium-hero__hint {
+  color: var(--quiet);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ---------- Controls ---------- */
+
+.aetherium-controls {
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.aetherium-controls__header {
+  max-width: 50ch;
+  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+  text-align: center;
+}
+
+.aetherium-controls__header h2 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+.aetherium-controls__desc {
+  margin-top: 1.5rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.aetherium-controls__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+  max-width: 1200px;
+  margin: 0 auto clamp(3rem, 6vw, 5rem);
+}
+
+.aetherium-band {
+  display: grid;
+  gap: 1.25rem;
+  padding: 2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.aetherium-band:hover {
+  border-color: var(--line-strong);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+.aetherium-band[data-band="low"] { --band-color: var(--aether-low); }
+.aetherium-band[data-band="mid"] { --band-color: var(--aether-mid); }
+.aetherium-band[data-band="high"] { --band-color: var(--aether-high); }
+
+.aetherium-band__label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.aetherium-band__name {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--band-color);
+}
+
+.aetherium-band__range {
+  color: var(--quiet);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+}
+
+.aetherium-band__slider-wrap {
+  position: relative;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.aetherium-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--bg-deep);
+  outline: none;
+  cursor: pointer;
+}
+
+.aetherium-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--band-color);
+  box-shadow: 0 0 20px var(--band-color), 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.aetherium-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 30px var(--band-color), 0 6px 16px rgba(0,0,0,0.4);
+}
+
+.aetherium-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: var(--band-color);
+  box-shadow: 0 0 20px var(--band-color);
+}
+
+.aetherium-slider::after {
+  content: attr(data-fill);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--band-color), color-mix(in srgb, var(--band-color) 70%, transparent));
+  width: calc((attr(data-value) - attr(min)) / (attr(max) - attr(min)) * 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.aetherium-slider__value {
+  color: var(--band-color);
+  font-family: var(--mono);
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.aetherium-waveform {
+  width: 100%;
+  height: 60px;
+  background: var(--bg-deep);
+  border-radius: 4px;
+}
+
+.aetherium-band__effect {
+  color: var(--quiet);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ---------- Master ---------- */
+
+.aetherium-master {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.aetherium-master__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 1.5rem;
+  align-items: end;
+}
+
+.aetherium-master__control {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.aetherium-master__label {
+  color: var(--quiet);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.aetherium-master__control input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--bg-deep);
+  cursor: pointer;
+}
+
+.aetherium-master__control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.aetherium-master__value {
+  color: var(--ink-dim);
+  font-family: var(--mono);
+  font-size: 1rem;
+}
+
+.aetherium-master__control--toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.aetherium-master__control--toggle input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  accent-color: var(--aether-mid);
+}
+
+/* ---------- Tech ---------- */
+
+.aetherium-tech {
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  border-top: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 80% 20%, rgba(112, 231, 255, 0.04), transparent 40%),
+    var(--bg);
+}
+
+.aetherium-tech h2 {
+  text-align: center;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.aetherium-tech__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.aetherium-tech__card {
+  padding: 2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.aetherium-tech__card h3 {
+  color: var(--aether-mid);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.aetherium-tech__card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.aetherium-tech__card li {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.aetherium-tech__card li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--aether-mid);
+  font-family: var(--mono);
+  font-size: 0.8em;
+}
+
+/* ---------- Case Link ---------- */
+
+.aetherium-case-link {
+  padding: clamp(3rem, 6vw, 5rem) 0;
+  border-top: 1px solid var(--line);
+}
+
+.case-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 40ch;
+  margin: 0 auto;
+  padding: 2.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  text-align: center;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.case-link:hover,
+.case-link:focus-visible {
+  border-color: var(--aether-mid);
+  background: var(--panel-soft);
+}
+
+.case-link__label {
+  color: var(--aether-mid);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.case-link__title {
+  color: var(--ink);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  line-height: 1.1;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1000px) {
+  .aetherium-controls__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .aetherium-tech__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .aetherium-master__row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .aetherium-master__control--toggle {
+    grid-column: span 2;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 600px) {
+  .aetherium-hero__ui {
+    padding-top: calc(var(--header-h) + 2.5rem);
+  }
+
+  .aetherium-band {
+    padding: 1.5rem;
+  }
+
+  .aetherium-master {
+    padding: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aetherium-fallback__chrome,
+  .aetherium-audio-toggle .btn__icon {
+    animation: none !important;
+  }
+
+  .aetherium-slider::-webkit-slider-thumb,
+  .aetherium-slider::-moz-range-thumb {
+    transition: none;
+  }
+}

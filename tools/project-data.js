@@ -366,7 +366,8 @@ const social = {
   x: "https://x.com/fnpsi_",
   instagram: "https://instagram.com/fnpsi",
   github: "https://github.com/fnpsi",
-  youtube: "https://youtube.com/@fnpsi"
+  youtube: "https://youtube.com/@fnpsi",
+  patreon: "https://patreon.com/functionpsi"
 };
 
 module.exports = { projects, site, social };

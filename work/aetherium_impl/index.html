@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aetherium — Function Psi</title>
+  <meta name="description" content="A spatial-audio instrument. Three frequencies. One chrome form that changes shape as you tune it. Real-time Web Audio synthesis and WebGL reflections.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/aetherium.css">
+  <script src="https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.min.js"></script>
+</head>
+<body class="aetherium">
+  <header class="site-header" data-header>
+    <div class="site-header__bar">
+      <a class="brand" href="/" aria-label="Function Psi — home">
+        <span class="brand__mark" aria-hidden="true">ƒΨ</span>
+        <span class="brand__word">Function Psi</span>
+      </a>
+      <nav class="desk-nav" aria-label="Primary">
+        <a href="/work/" data-nav="work">Projects <sup>06</sup></a>
+        <a href="/about.html" data-nav="about">About</a>
+        <a class="desk-nav__contact" href="/contact.html" data-nav="contact">Contact <span aria-hidden="true">↗</span></a>
+      </nav>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
+        <span class="menu-toggle__label">Menu</span>
+        <span class="menu-toggle__icon" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </div>
+    <div class="scroll-line" aria-hidden="true"><span data-scroll-progress></span></div>
+    <div class="mobile-menu" id="mobile-menu" data-menu aria-hidden="true">
+      <div class="mobile-menu__inner">
+        <p class="eyebrow">Navigation</p>
+        <nav class="mobile-menu__nav" aria-label="Mobile">
+          <a href="/work/" data-nav="work"><span>Projects</span><span>06</span></a>
+          <a href="/about.html" data-nav="about"><span>About</span><span>03</span></a>
+          <a href="/contact.html" data-nav="contact"><span>Contact</span><span>04</span></a>
+        </nav>
+        <div class="mobile-menu__foot">
+          <p>Making digital stuff is so cool.<br>One of the coolest websites out there.</p>
+          <div class="social-row" aria-label="Social profiles">
+            <a href="https://x.com/fnpsi_" target="_blank" rel="noopener noreferrer">X <span>↗</span></a>
+            <a href="https://instagram.com/fnpsi" target="_blank" rel="noopener noreferrer">Instagram <span>↗</span></a>
+            <a href="https://github.com/fnpsi" target="_blank" rel="noopener noreferrer">GitHub <span>↗</span></a>
+            <a href="https://youtube.com/@fnpsi" target="_blank" rel="noopener noreferrer">YouTube <span>↗</span></a>
+            <a href="https://patreon.com/functionpsi" target="_blank" rel="noopener noreferrer">Patreon <span>↗</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="aetherium-hero" aria-labelledby="aetherium-title">
+      <div class="aetherium-canvas-wrapper">
+        <canvas id="aetherium-canvas" aria-hidden="true"></canvas>
+        <div id="aetherium-fallback" class="aetherium-fallback" hidden>
+          <div class="aetherium-fallback__chrome" aria-hidden="true"></div>
+          <p class="aetherium-fallback__note">WebGL unavailable. Showing CSS fallback.</p>
+        </div>
+      </div>
+      <div class="aetherium-hero__ui">
+        <div class="aetherium-hero__top">
+          <p class="eyebrow">Aetherium / Live Instrument</p>
+          <h1 id="aetherium-title">Aether<em>ium</em></h1>
+          <p class="aetherium-hero__desc">A spatial-audio instrument. Three frequencies. One chrome form that changes shape as you tune it.</p>
+        </div>
+        <div class="aetherium-hero__bottom">
+          <button class="btn aetherium-audio-toggle" id="audio-toggle" type="button" aria-pressed="false" disabled>
+            <span class="btn__icon" aria-hidden="true">◉</span>
+            <span>Enable Audio</span>
+          </button>
+          <p class="aetherium-hero__hint">Click to enable audio. Works best with headphones.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="aetherium-controls" aria-labelledby="controls-title">
+      <div class="container">
+        <div class="aetherium-controls__header">
+          <h2 id="controls-title">Tune the Instrument</h2>
+          <p class="aetherium-controls__desc">Each slider controls a frequency band. The chrome form responds in real-time — geometry, light, and sound all linked.</p>
+        </div>
+        <div class="aetherium-controls__grid">
+          <div class="aetherium-band" data-band="low">
+            <div class="aetherium-band__label">
+              <span class="aetherium-band__name">Low</span>
+              <span class="aetherium-band__range">30 — 250 Hz</span>
+            </div>
+            <div class="aetherium-band__slider-wrap">
+              <input type="range" class="aetherium-slider" id="slider-low" min="30" max="250" value="80" step="1" aria-label="Low frequency">
+              <output class="aetherium-slider__value" for="slider-low">80 Hz</output>
+            </div>
+            <div class="aetherium-band__visual" aria-hidden="true">
+              <canvas class="aetherium-waveform" width="200" height="60"></canvas>
+            </div>
+            <p class="aetherium-band__effect">Controls fundamental body & chrome scale</p>
+          </div>
+
+          <div class="aetherium-band" data-band="mid">
+            <div class="aetherium-band__label">
+              <span class="aetherium-band__name">Mid</span>
+              <span class="aetherium-band__range">250 — 2000 Hz</span>
+            </div>
+            <div class="aetherium-band__slider-wrap">
+              <input type="range" class="aetherium-slider" id="slider-mid" min="250" max="2000" value="440" step="1" aria-label="Mid frequency">
+              <output class="aetherium-slider__value" for="slider-mid">440 Hz</output>
+            </div>
+            <div class="aetherium-band__visual" aria-hidden="true">
+              <canvas class="aetherium-waveform" width="200" height="60"></canvas>
+            </div>
+            <p class="aetherium-band__effect">Controls harmonic complexity & orbital speed</p>
+          </div>
+
+          <div class="aetherium-band" data-band="high">
+            <div class="aetherium-band__label">
+              <span class="aetherium-band__name">High</span>
+              <span class="aetherium-band__range">2000 — 8000 Hz</span>
+            </div>
+            <div class="aetherium-band__slider-wrap">
+              <input type="range" class="aetherium-slider" id="slider-high" min="2000" max="8000" value="3200" step="1" aria-label="High frequency">
+              <output class="aetherium-slider__value" for="slider-high">3200 Hz</output>
+            </div>
+            <div class="aetherium-band__visual" aria-hidden="true">
+              <canvas class="aetherium-waveform" width="200" height="60"></canvas>
+            </div>
+            <p class="aetherium-band__effect">Controls shimmer detail & particle density</p>
+          </div>
+        </div>
+
+        <div class="aetherium-master">
+          <div class="aetherium-master__row">
+            <label class="aetherium-master__control" for="master-gain">
+              <span class="aetherium-master__label">Master Gain</span>
+              <input type="range" id="master-gain" min="0" max="1" value="0.35" step="0.01" aria-label="Master gain">
+              <output class="aetherium-master__value" for="master-gain">0.35</output>
+            </label>
+            <label class="aetherium-master__control" for="reverb-mix">
+              <span class="aetherium-master__label">Space</span>
+              <input type="range" id="reverb-mix" min="0" max="1" value="0.4" step="0.01" aria-label="Reverb mix">
+              <output class="aetherium-master__value" for="reverb-mix">0.40</output>
+            </label>
+            <label class="aetherium-master__control aetherium-master__control--toggle">
+              <input type="checkbox" id="auto-play" checked aria-label="Auto-play evolving sequence">
+              <span class="aetherium-master__label">Evolve</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="aetherium-tech" aria-labelledby="tech-title">
+      <div class="container">
+        <h2 id="tech-title">Under the Hood</h2>
+        <div class="aetherium-tech__grid">
+          <article class="aetherium-tech__card">
+            <h3>Web Audio Graph</h3>
+            <ul>
+              <li>Three sine oscillators (one per band) with individual gain nodes</li>
+              <li>ConvolverNode with generated impulse response for reverb</li>
+              <li>AnalyserNode for real-time waveform visualization</li>
+              <li>Master gain with smooth parameter automation</li>
+            </ul>
+          </article>
+          <article class="aetherium-tech__card">
+            <h3>Three.js Scene</h3>
+            <ul>
+              <li>High-res torus knot (128 × 64 segments) with physical material</li>
+              <li>Custom vertex displacement driven by audio frequency data</li>
+              <li>Procedural room environment map for reflections</li>
+              <li>Orbital rings with instanced mesh, color-shifted per band</li>
+              <li>Shader-based particle field (2000 points) reacting to transients</li>
+            </ul>
+          </article>
+          <article class="aetherium-tech__card">
+            <h3>Interaction Model</h3>
+            <ul>
+              <li>Sliders drive both audio params and visual uniforms simultaneously</li>
+              <li>Auto-evolve mode uses Perlin noise for organic parameter drift</li>
+              <li>Pointer parallax on desktop, gyroscope on mobile</li>
+              <li>Reduced-motion: disables auto-evolve, freezes particle animation</li>
+              <li>No WebGL: CSS chrome poster with static gradient rings</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="aetherium-case-link">
+      <div class="container">
+        <a href="/work/aetherium.html" class="case-link">
+          <span class="case-link__label">Read the Case Study</span>
+          <span class="case-link__title">Aetherium — Full Story <span aria-hidden="true">↗</span></span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-cta" data-reveal>
+        <p class="eyebrow">Next signal</p>
+        <h2>Have a strange idea?<br><em>Let's make it real.</em></h2>
+        <a class="btn" href="/contact.html" data-magnetic="0.15">
+          <span>Open the console</span><span aria-hidden="true">↗</span>
+        </a>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="footer-brand__mark" aria-hidden="true">ƒΨ</span>
+          <p>Rendani Manugeni is a creative developer building 3D worlds, WebGL instruments, and websites with a pulse.</p>
+          <p>Making digital stuff is so cool.</p>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col__title">Index</p>
+          <nav aria-label="Footer navigation">
+            <a href="/">Home <span>01</span></a>
+            <a href="/work/">Projects <span>02</span></a>
+            <a href="/about.html">About <span>03</span></a>
+            <a href="/contact.html">Contact <span>04</span></a>
+          </nav>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col__title">Elsewhere</p>
+          <nav aria-label="Social profiles">
+            <a href="https://x.com/fnpsi_" target="_blank" rel="noopener noreferrer">X / @fnpsi_ <span>↗</span></a>
+            <a href="https://instagram.com/fnpsi" target="_blank" rel="noopener noreferrer">Instagram / @fnpsi <span>↗</span></a>
+            <a href="https://github.com/fnpsi" target="_blank" rel="noopener noreferrer">GitHub / fnpsi <span>↗</span></a>
+            <a href="https://youtube.com/@fnpsi" target="_blank" rel="noopener noreferrer">YouTube / @fnpsi <span>↗</span></a>
+            <a href="https://patreon.com/functionpsi" target="_blank" rel="noopener noreferrer">Patreon / @functionpsi <span>↗</span></a>
+          </nav>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="copyright">© 2026 Rendani Manugeni. All rights reserved.</p>
+        <nav aria-label="Legal">
+          <a href="/privacy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
+          <button type="button" data-cookie-settings>Cookie settings</button>
+        </nav>
+        <p class="footer-time"><span id="footer-tz">SAST</span> <span id="footer-time">--:--</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie preferences" hidden>
+    <div class="cookie-banner__inner">
+      <div class="cookie-banner__content">
+        <p class="cookie-banner__title">Cookies, but the polite kind.</p>
+        <p>This site does not use advertising cookies or third-party analytics. It stores your choice here. If you accept, it can also remember the last three projects you viewed. Essential only stores this preference and nothing else.</p>
+      </div>
+      <div class="cookie-banner__actions">
+        <button class="btn" data-cookie-accept>Accept all</button>
+        <button class="btn btn--ghost" data-cookie-reject>Essential only</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js"></script>
+  <script type="module" src="/js/aetherium.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/consent.js"></script>
+  <script src="/js/loader.js"></script>
+</body>
+</html>
