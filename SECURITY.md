@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-This repository is a static website. There are no versioned releases or long-term support branches. Security fixes are applied to the latest commit on `main`, which is the version deployed to [fnpsi.env.pm](https://fnpsi.env.pm) and [fnpsi.github.io](https://fnpsi.github.io).
+This repository is a static website. There are no versioned releases or long-term support branches. Security fixes are applied to the latest commit on `main`, which is the version deployed to [fnpsi.env.pm](https://fnpsi.env.pm) and [functionpsi.github.io/fnpsi.github.io](https://functionpsi.github.io/fnpsi.github.io/) (the `fnpsi.github.io` URL redirects here).
 
 | Version | Supported |
 | --- | --- |
@@ -13,7 +13,7 @@ This repository is a static website. There are no versioned releases or long-ter
 
 Please **do not open a public issue** for a security problem. Report it privately through one of these routes:
 
-1. **GitHub Security Advisories** — use the **Report a vulnerability** button at [github.com/fnpsi/fnpsi.github.io/security/advisories/new](https://github.com/fnpsi/fnpsi.github.io/security/advisories/new).
+1. **GitHub Security Advisories** — use the **Report a vulnerability** button at [github.com/functionpsi/fnpsi.github.io/security/advisories/new](https://github.com/functionpsi/fnpsi.github.io/security/advisories/new).
 2. **X** — send a direct message to [@fnpsi_](https://x.com/fnpsi_) if you cannot use GitHub.
 
 Include as much of the following as you can:

@@ -3,8 +3,8 @@
 The portfolio of **Rendani Manugeni**, a South African creative developer working as **Function Psi**. The site is a static, no-build showcase for 3D, Web3D, and web work — built around a real-time Three.js hero, GSAP scroll choreography, and a small set of complete case studies.
 
 - Live site: [fnpsi.env.pm](https://fnpsi.env.pm)
-- GitHub Pages: [fnpsi.github.io](https://fnpsi.github.io)
-- Repository: [github.com/fnpsi/fnpsi.github.io](https://github.com/fnpsi/fnpsi.github.io)
+- GitHub Pages: [functionpsi.github.io/fnpsi.github.io](https://functionpsi.github.io/fnpsi.github.io/) — redirects to the custom domain
+- Repository: [github.com/functionpsi/fnpsi.github.io](https://github.com/functionpsi/fnpsi.github.io) — the old `fnpsi` URL redirects here
 
 **Making digital stuff is so cool.** One of the coolest websites out there.
 
@@ -14,10 +14,10 @@ The portfolio of **Rendani Manugeni**, a South African creative developer workin
 
 | Area | Details |
 | --- | --- |
-| Pages | Home, Work index, six case studies, About, Privacy, Terms, 404 |
+| Pages | Home, Projects index, six case studies, About, Contact, Privacy, Terms, 404 |
 | 3D | Three.js 0.170.0 hero with pointer + scroll response, reduced-motion and no-WebGL fallbacks |
 | Motion | GSAP 3.13.0 + ScrollTrigger, Lenis 1.3.11 smooth scrolling |
-| Portfolio | Category filters for 3D, Web3D, and Web; optional “recently viewed” memory |
+| Portfolio | Live GitHub workbench plus six selected studies with category filters and optional “recently viewed” memory |
 | Consent | Persistent local-storage choice, accept-all or essential-only, reset from the footer |
 | Accessibility | Skip link, focus management, reduced-motion support, semantic landmarks, visible focus states |
 | Hosting | GitHub Pages, static files only, custom domain via `CNAME` |
@@ -28,12 +28,13 @@ The portfolio of **Rendani Manugeni**, a South African creative developer workin
 ```text
 .
 ├── index.html                 # Home
-├── about.html                 # About Rendani
+├── about.html                 # About Rendani — studio dossier
+├── contact.html               # Contact — transmission console
 ├── privacy.html               # Privacy Policy
 ├── terms.html                 # Terms of Use
 ├── 404.html                   # Not found
 ├── work/
-│   ├── index.html             # Portfolio index + filters
+│   ├── index.html             # Projects: GitHub workbench + selected studies
 │   ├── aetherium.html
 │   ├── kinetic-type-lab.html
 │   ├── orbital-atlas.html
@@ -47,16 +48,21 @@ The portfolio of **Rendani Manugeni**, a South African creative developer workin
 ├── components/                # Shared header, footer, consent, cursor, loader
 ├── css/
 │   ├── base.css               # Tokens, layout, header, footer, consent, cursor
-│   ├── main.css               # Home + About
-│   ├── work.css               # Work index
+│   ├── main.css               # Home
+│   ├── work.css               # Projects index + selected studies
+│   ├── workbench.css          # GitHub workbench + study rows
+│   ├── about.css              # About dossier
+│   ├── contact.css            # Contact console
 │   ├── case-study.css         # Project detail pages
 │   └── legal.css              # Privacy, Terms, 404
 ├── js/
-│   ├── app.js                 # Navigation, Lenis, reveals, cursor, pinned section
+│   ├── app.js                 # Navigation, Lenis, reveals, cursor, TOC, pinned section
 │   ├── hero3d.js              # Three.js hero
 │   ├── loader.js              # Loading screen
 │   ├── consent.js             # Cookie consent + optional recent projects
-│   ├── work.js                # Filters + recent projects
+│   ├── github.js              # Live GitHub workbench
+│   ├── work.js                # Study filters + recent projects
+│   ├── contact.js             # Local brief builder
 │   └── case-study.js          # Reading progress
 ├── tools/
 │   ├── project-data.js        # All project copy and metadata
@@ -95,10 +101,12 @@ npx serve .
 
 The repository is already structured for GitHub Pages. There is **no build server and no build step** — the HTML files are committed as-is.
 
-1. Push the repository to `github.com/fnpsi/fnpsi.github.io`.
+The GitHub account's canonical login is `functionpsi` (the `fnpsi` handle redirects). The repository is `functionpsi/fnpsi.github.io`.
+
+1. Push the repository to `github.com/functionpsi/fnpsi.github.io`.
 2. In **Settings → Pages**, set **Source** to **Deploy from a branch**.
 3. Choose branch **main** and folder **/ (root)**, then save.
-4. Wait for the Pages deployment to finish. The site will be available at `https://fnpsi.github.io`.
+4. Wait for the Pages deployment to finish. The site will be available at `https://functionpsi.github.io/fnpsi.github.io/` and will redirect to the custom domain.
 5. Keep the `CNAME` file in the repository root. It contains:
 
    ```text
@@ -121,13 +129,13 @@ At the DNS provider for `env.pm`, point the apex domain at GitHub Pages:
 | AAAA | `@` | `2606:50c0:8001::153` |
 | AAAA | `@` | `2606:50c0:8002::153` |
 | AAAA | `@` | `2606:50c0:8003::153` |
-| CNAME | `www` | `fnpsi.github.io` |
+| CNAME | `www` | `functionpsi.github.io` |
 
 If you prefer `www.fnpsi.env.pm` as the canonical host, set the `CNAME` file to `www.fnpsi.env.pm` and add a redirect from the apex. The current configuration uses the apex domain.
 
-GitHub may ask you to verify the domain with a `TXT` record named `_github-pages-challenge-fnpsi`. Add the value GitHub gives you, then re-check the domain in repository settings.
+GitHub may ask you to verify the domain with a `TXT` record named `_github-pages-challenge-functionpsi`. Add the value GitHub gives you, then re-check the domain in repository settings.
 
-> **Note:** If the site is ever served from a project subpath instead of a user/organization root, the root-absolute links in the generated HTML would need to become relative. This repository is `fnpsi.github.io`, so it is served from the domain root.
+> **Note:** If the site is ever served from a project subpath instead of a user/organization root, the root-absolute links in the generated HTML would need to become relative. This repository is `functionpsi/fnpsi.github.io`, served as a project site at `/fnpsi.github.io/`.
 
 ## Editing content
 
@@ -182,11 +190,13 @@ On Windows:
 
 Useful manual checks after a change:
 
-- Load `/` and `/work/` and confirm the loading screen finishes, including with `?webgl=off`.
-- Confirm the hero responds to pointer movement and scroll.
-- Filter the Work index by 3D, Web3D, and Web; the URL should update with `?category=...`.
+- Load `/`, `/work/`, `/about.html`, `/contact.html` and confirm the loading screen finishes.
+- Confirm the hero responds to pointer movement and scroll; reduced-motion hides WebGL.
+- On `/work/`: GitHub workbench shows live status, stats, search/sort/language filters work; study rows filter by category.
+- On `/contact/`: brief preview composes as you type; Copy/Download enable when idea is entered; Reset clears form; X link opens `@fnpsi_`.
+- On `/about/`: sticky rail highlights active section on scroll; all six dossier sections present.
 - Open a case study, scroll, and confirm the reading-progress line and section navigation.
-- Clear local storage, reload, and confirm the consent banner appears. Accept all, visit three projects, and check “Recently viewed” on Work.
+- Clear local storage, reload, and confirm the consent banner appears. Accept all, visit three projects, and check “Recently viewed” on Projects.
 - Choose “Essential only” and confirm `fnpsi-recent-work-v1` is removed.
 - Use the footer **Cookie settings** button to reopen the banner.
 - Enable reduced motion at the OS level and confirm animations are suppressed.
@@ -204,6 +214,9 @@ The site sets no advertising or analytics cookies. It stores:
 
 - `fnpsi-consent-v1` — your consent choice (essential).
 - `fnpsi-recent-work-v1` — the last three projects you viewed (optional, only after “Accept all”).
+- `fnpsi-gh-cache-v1` — session cache of the GitHub API response on the Projects page (10 minutes, tab-only).
+
+The Contact page’s brief builder runs entirely in the browser; nothing is submitted to a server. Copying places text on your clipboard; opening X is a normal link.
 
 The full details, including third-party font and CDN processing, are in [`privacy.html`](privacy.html). The site’s terms are in [`terms.html`](terms.html).
 
