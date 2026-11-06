@@ -1,0 +1,17 @@
+{
+  "name": "Function Psi — Rendani Manugeni",
+  "short_name": "Function Psi",
+  "description": "Making digital stuff is so cool.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#08090a",
+  "theme_color": "#08090a",
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

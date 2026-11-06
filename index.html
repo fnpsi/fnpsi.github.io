@@ -1,219 +1,572 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-ZA" class="no-js">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Function Psi | Ψ Digital Lab</title>
-  <meta name="description" content="One of the coolest websites out there — Function Psi's digital playground of tools, generators, and experiments." />
-  <meta name="color-scheme" content="light only" />
-  <meta name="supported-color-schemes" content="light" />
-  <meta name="darkreader-lock" />
-  <meta name="theme-color" content="#1c4839" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Google+Sans+Code:wght@400;700&family=Inter:wght@400;500;600;700;800&family=Newsreader:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Function Psi — Rendani Manugeni</title>
+<meta name="description" content="Rendani Manugeni is a South African creative developer building 3D worlds, WebGL instruments, and websites with a pulse. Making digital stuff is so cool.">
+<link rel="canonical" href="https://fnpsi.env.pm/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="Rendani Manugeni">
+<meta name="theme-color" content="#08090a">
+<meta name="color-scheme" content="dark">
+<meta name="format-detection" content="telephone=no">
+<meta property="og:site_name" content="Function Psi">
+<meta property="og:locale" content="en_ZA">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Function Psi — Rendani Manugeni">
+<meta property="og:description" content="Rendani Manugeni is a South African creative developer building 3D worlds, WebGL instruments, and websites with a pulse. Making digital stuff is so cool.">
+<meta property="og:url" content="https://fnpsi.env.pm/">
+<meta property="og:image" content="https://fnpsi.env.pm/assets/og/og-cover.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Function Psi — Making digital stuff is so cool.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@fnpsi_">
+<meta name="twitter:creator" content="@fnpsi_">
+<meta name="twitter:title" content="Function Psi — Rendani Manugeni">
+<meta name="twitter:description" content="Rendani Manugeni is a South African creative developer building 3D worlds, WebGL instruments, and websites with a pulse. Making digital stuff is so cool.">
+<meta name="twitter:image" content="https://fnpsi.env.pm/assets/og/og-cover.png">
+<meta name="twitter:image:alt" content="Function Psi — Making digital stuff is so cool.">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/main.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://fnpsi.env.pm/#person",
+      "name": "Rendani Manugeni",
+      "alternateName": "Function Psi",
+      "url": "https://fnpsi.env.pm/",
+      "jobTitle": "Creative Developer",
+      "description": "Rendani Manugeni is a South African creative developer building 3D worlds, WebGL instruments, and websites with a pulse.",
+      "sameAs": [
+        "https://x.com/fnpsi_",
+        "https://instagram.com/fnpsi",
+        "https://github.com/fnpsi",
+        "https://youtube.com/@fnpsi"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "ZA"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://fnpsi.env.pm/#website",
+      "url": "https://fnpsi.env.pm/",
+      "name": "Function Psi",
+      "description": "Making digital stuff is so cool.",
+      "publisher": {
+        "@id": "https://fnpsi.env.pm/#person"
+      },
+      "inLanguage": "en-ZA"
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://fnpsi.env.pm/#profile",
+      "url": "https://fnpsi.env.pm/",
+      "name": "Function Psi — Rendani Manugeni",
+      "isPartOf": {
+        "@id": "https://fnpsi.env.pm/#website"
+      },
+      "about": {
+        "@id": "https://fnpsi.env.pm/#person"
+      }
+    }
+  ]
+}
+</script>
+<script>document.documentElement.classList.remove("no-js");</script>
 </head>
-<body class="webgl-loader-overlay">
-
-  <!-- Loading Screen -->
-  <div id="loading-screen" class="loading-screen" role="status" aria-label="Loading Ψ Digital Lab">
-    <div class="loading-inner">
-      <div class="loading-logo">FxΨ</div>
-      <div class="loading-counter" id="loading-counter">00</div>
-      <div class="loading-bar">
-        <div class="loading-progress" id="loading-progress"></div>
-      </div>
-      <p class="loading-text" id="loading-text">Initializing digital lab...</p>
-    </div>
+<body class="home" data-page="home">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="loader" data-loader role="status" aria-live="polite" aria-busy="true" aria-label="Loading Function Psi">
+  <div class="loader__top">
+    <span>Function Psi</span>
+    <span>Portfolio / 2026</span>
   </div>
 
-  <!-- Background gradient matching WebGL -->
-  <div id="bg-gradient" aria-hidden="true"></div>
-  <div id="pre-canvas-99" aria-hidden="true">99</div>
+  <div class="loader__center">
+    <span class="loader__mark" aria-hidden="true">ƒΨ</span>
+    <div class="loader__count"><span data-loader-count>00</span><small>%</small></div>
+    <div class="loader__bar"><span data-loader-bar></span></div>
+    <p class="loader__status" data-loader-status>Waking up the browser</p>
+  </div>
 
-  <!-- WebGL Canvas -->
-  <canvas id="webgl" role="img" aria-label="Ψ Digital Lab interactive experience"></canvas>
+  <div class="loader__bottom">
+    <span>Rendani Manugeni</span>
+    <span>Making digital stuff is so cool.</span>
+  </div>
+</div>
+<header class="site-header" data-header>
+  <div class="site-header__bar">
+    <a class="brand" href="/" aria-label="Function Psi — home">
+      <span class="brand__mark" aria-hidden="true">ƒΨ</span>
+      <span class="brand__word">Function Psi</span>
+    </a>
 
-  <!-- UI Container -->
-  <div id="ui-container" role="region" aria-label="Interface controls" style="opacity: 0;">
-
-    <!-- Navigation Bar -->
-    <nav class="nav-bar" id="nav-bar">
-      <div class="nav-left">
-        <a href="#" class="nav-logo" aria-label="Function Psi home">FxΨ</a>
-        <span class="nav-tagline">One of the coolest websites out there.</span>
-      </div>
-      <div class="nav-center" id="nav-center">
-        <!-- Menu buttons injected -->
-      </div>
-      <div class="nav-right">
-        <button class="nav-btn" id="nav-theme" aria-label="Toggle theme">🌓</button>
-        <button class="nav-btn" id="nav-social" aria-label="Social links">🔗</button>
-      </div>
+    <nav class="desk-nav" aria-label="Primary">
+      <a href="/work/" data-nav="work">Work <sup>06</sup></a>
+      <a href="/about.html" data-nav="about">About</a>
+      <a class="desk-nav__contact" href="https://x.com/fnpsi_" target="_blank" rel="noopener noreferrer">Contact <span aria-hidden="true">↗</span></a>
     </nav>
 
-    <!-- Main Content Areas (floating cards) -->
-    <main class="main-content" id="main-content">
-      <!-- Hero Section -->
-      <section class="hero-section section-hidden" id="hero-section">
-        <div class="hero-inner">
-          <h1 class="hero-title">
-            <span class="hero-name">Function Psi</span>
-            <span class="hero-psi">Ψ</span>
-          </h1>
-          <p class="hero-desc">Digital playground of tools, generators, and experiments.</p>
-          <div class="hero-stats">
-            <div class="hero-stat">
-              <span class="hero-stat-num" id="stat-tools">0</span>
-              <span class="hero-stat-label">Tools</span>
-            </div>
-            <div class="hero-stat">
-              <span class="hero-stat-num" id="stat-apps">0</span>
-              <span class="hero-stat-label">Apps</span>
-            </div>
-            <div class="hero-stat">
-              <span class="hero-stat-num" id="stat-projects">0</span>
-              <span class="hero-stat-label">Projects</span>
-            </div>
-          </div>
-          <div class="hero-actions">
-            <a href="#tools" class="hero-btn primary">Explore Tools</a>
-            <a href="#generative" class="hero-btn secondary">Generative Art</a>
-            <a href="#api" class="hero-btn secondary">Personal API</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Tools Grid Section -->
-      <section class="tools-section section-hidden" id="tools-section">
-        <div class="section-header">
-          <h2 class="section-title">Tools & Apps</h2>
-          <p class="section-desc">Curated from across the web. Click to open.</p>
-        </div>
-        <div class="tools-grid" id="tools-grid" role="grid" aria-label="Tools"></div>
-      </section>
-
-      <!-- Generative Art Section -->
-      <section class="generative-section section-hidden" id="generative-section">
-        <div class="section-header">
-          <h2 class="section-title">Generative Art System</h2>
-          <p class="section-desc">Data-driven algorithmic art. Weather, stocks, crypto — rendered in motion.</p>
-        </div>
-        <div class="generative-canvas-wrap">
-          <canvas id="generative-canvas" class="generative-canvas"></canvas>
-        </div>
-        <div class="generative-controls" id="generative-controls">
-          <select id="gen-source" class="gen-select">
-            <option value="weather">Weather Patterns</option>
-            <option value="stocks">Stock Prices</option>
-            <option value="crypto">Crypto Prices</option>
-            <option value="audio">Audio Wave</option>
-            <option value="random">Pure Random</option>
-          </select>
-          <select id="gen-algo" class="gen-select">
-            <option value="particles">Particle Flow</option>
-            <option value="waveform">Waveform</option>
-            <option value="voronoi">Voronoi Cells</option>
-            <option value="spiral">Data Spiral</option>
-          </select>
-          <select id="gen-palette" class="gen-select">
-            <option value="psi">Ψ Violet/Cyan</option>
-            <option value="teal">ZERO Teal</option>
-            <option value="neon">Neon Midnight</option>
-            <option value="sunset">Sunset</option>
-            <option value="matrix">Matrix</option>
-          </select>
-          <button class="gen-btn" id="gen-export">Export Image</button>
-        </div>
-      </section>
-
-      <!-- Personal API Section -->
-      <section class="api-section section-hidden" id="api-section">
-        <div class="section-header">
-          <h2 class="section-title">Personal API</h2>
-          <p class="section-desc">Single endpoint for Rendani Manugeni. Profile, skills, projects, socials.</p>
-        </div>
-        <div class="api-layout">
-          <aside class="api-sidebar" id="api-sidebar">
-            <div class="api-section-title">Endpoints</div>
-            <div class="api-endpoint-list" id="api-endpoint-list"></div>
-          </aside>
-          <div class="api-main">
-            <div class="api-json-view" id="api-json-view"></div>
-            <div class="api-actions">
-              <button class="api-btn" id="api-copy">Copy JSON</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Portfolio Section -->
-      <section class="portfolio-section section-hidden" id="portfolio-section">
-        <div class="section-header">
-          <h2 class="section-title">Portfolio</h2>
-          <p class="section-desc">Projects, experiments, and things built.</p>
-        </div>
-        <div class="portfolio-grid" id="portfolio-grid"></div>
-      </section>
-
-      <!-- Dashboard Section -->
-      <section class="dashboard-section section-hidden" id="dashboard-section"></section>
-
-      <!-- Footer -->
-      <footer class="footer section-hidden" id="footer">
-        <div class="footer-inner">
-          <div class="footer-brand">FxΨ</div>
-          <p class="footer-copy">Built by Function Psi. <a href="https://x.com/fnpsi_" target="_blank" rel="noopener">@fnpsi_</a> · <a href="https://instagram.com/fnpsi" target="_blank" rel="noopener">fnpsi</a> · <a href="https://youtube.com/@fnpsi" target="_blank" rel="noopener">@fnpsi</a></p>
-          <p class="footer-note">One of the coolest websites out there.</p>
-        </div>
-      </footer>
-    </main>
-
-    <!-- Floating Modals -->
-    <div class="modal-overlay" id="social-modal">
-      <div class="modal-card">
-        <button class="modal-close" id="social-close" aria-label="Close">✕</button>
-        <h3>Connect</h3>
-        <div class="modal-social">
-          <a href="https://x.com/fnpsi_" target="_blank" rel="noopener" class="modal-social-link">𝕏 @fnpsi_</a>
-          <a href="https://instagram.com/fnpsi" target="_blank" rel="noopener" class="modal-social-link">📷 fnpsi</a>
-          <a href="https://youtube.com/@fnpsi" target="_blank" rel="noopener" class="modal-social-link">▶️ @fnpsi</a>
-          <a href="https://github.com/fnpsi" target="_blank" rel="noopener" class="modal-social-link">GitHub fnpsi</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal-overlay" id="tool-modal">
-      <div class="modal-card tool-modal-card">
-        <button class="modal-close" id="tool-close" aria-label="Close">✕</button>
-        <div class="tool-modal-header">
-          <div class="tool-modal-avatar" id="tool-modal-avatar"></div>
-          <div>
-            <h3 id="tool-modal-title"></h3>
-            <p id="tool-modal-category" class="tool-modal-category"></p>
-          </div>
-        </div>
-        <p id="tool-modal-desc" class="tool-modal-desc"></p>
-        <div class="tool-modal-tags" id="tool-modal-tags"></div>
-        <a id="tool-modal-link" class="tool-modal-link" target="_blank" rel="noopener">Open Tool →</a>
-      </div>
-    </div>
-
+    <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
+      <span class="menu-toggle__label">Menu</span>
+      <span class="menu-toggle__icon" aria-hidden="true"><i></i><i></i></span>
+    </button>
   </div>
 
-  <!-- Data -->
-  <script src="data/tools.json"></script>
-  <script src="data/portfolio.js"></script>
+  <div class="scroll-line" aria-hidden="true"><span data-scroll-progress></span></div>
 
-  <!-- Modules -->
-  <script src="js/shader.js"></script>
-  <script src="js/generative-art-full.js"></script>
-  <script src="js/api.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/dashboard.js"></script>
-  <script src="js/realtime.js"></script>
-  <script src="js/loader.js"></script>
+  <div class="mobile-menu" id="mobile-menu" data-menu aria-hidden="true">
+    <div class="mobile-menu__inner">
+      <p class="eyebrow">Navigation</p>
+      <nav class="mobile-menu__nav" aria-label="Mobile">
+        <a href="/work/" data-nav="work"><span>Work</span><span>06</span></a>
+        <a href="/about.html" data-nav="about"><span>About</span><span>02</span></a>
+        <a href="https://x.com/fnpsi_" target="_blank" rel="noopener noreferrer"><span>Contact</span><span>↗</span></a>
+      </nav>
+      <div class="mobile-menu__foot">
+        <p>Making digital stuff is so cool.<br>One of the coolest websites out there.</p>
+        <div class="social-row" aria-label="Social profiles">
+          <a href="https://x.com/fnpsi_" target="_blank" rel="noopener noreferrer">X <span>↗</span></a>
+          <a href="https://instagram.com/fnpsi" target="_blank" rel="noopener noreferrer">Instagram <span>↗</span></a>
+          <a href="https://github.com/fnpsi" target="_blank" rel="noopener noreferrer">GitHub <span>↗</span></a>
+          <a href="https://youtube.com/@fnpsi" target="_blank" rel="noopener noreferrer">YouTube <span>↗</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <section class="hero-cinema" data-hero-cinema aria-labelledby="hero-title">
+    <div class="hero-cinema__pin" data-hero-pin>
+      <div class="hero-cinema__stage" data-hero-visual>
+        <canvas class="hero-cinema__canvas" data-hero-canvas aria-hidden="true"></canvas>
+        <div class="hero-cinema__fallback" data-hero-fallback aria-hidden="true">
+          <div class="hero-cinema__fallback-orb"></div>
+          <span class="hero-cinema__fallback-ring"></span>
+          <span class="hero-cinema__fallback-ring hero-cinema__fallback-ring--two"></span>
+        </div>
+        <div class="hero-cinema__scrim" aria-hidden="true"></div>
+        <div class="hero-cinema__vignette" aria-hidden="true"></div>
+        <div class="hero-cinema__grain" aria-hidden="true"></div>
+        <span class="hero-cinema__crosshair hero-cinema__crosshair--one" aria-hidden="true"></span>
+        <span class="hero-cinema__crosshair hero-cinema__crosshair--two" aria-hidden="true"></span>
+      </div>
+      <div class="hero-cinema__rail" aria-hidden="true">
+        <span class="hero-cinema__rail-label">FNPSI / Signal study / 2026</span>
+        <span class="hero-cinema__rail-line"></span>
+        <span class="hero-cinema__rail-coords" data-hero-coords>X 0.0 / Y 0.0 / Z 9.0</span>
+      </div>
+
+      <div class="container hero-cinema__ui">
+        <div class="hero-cinema__top">
+          <p class="eyebrow">Rendani Manugeni / Creative developer</p>
+          <div class="hero-cinema__hud" aria-hidden="true">
+            <span data-hero-phase>01 / Signal</span>
+            <span class="hero-cinema__hud-track"><i data-hero-progress></i></span>
+            <span data-hero-percent>00</span>
+          </div>
+        </div>
+
+        <div class="hero-cinema__main">
+          <h1 class="hero-cinema__title" id="hero-title">
+            <span class="hero__line"><span>Making</span></span>
+            <span class="hero__line"><span>digital stuff</span></span>
+            <span class="hero__line"><span>is <em>so cool.</em></span></span>
+          </h1>
+          <div class="hero-cinema__intro">
+            <p class="hero__lede">I build <strong>3D worlds, WebGL instruments, and websites with a pulse.</strong> Function Psi is the independent practice of Rendani Manugeni — one person in South Africa, with a very wide browser.</p>
+            <div class="hero__actions">
+              <a class="btn" href="/work/" data-magnetic="0.14"><span>See the work</span><span aria-hidden="true">↗</span></a>
+              <a class="btn btn--ghost" href="/about.html"><span>About Rendani</span></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-cinema__phase-stage" aria-hidden="true">
+          <div class="hero-cinema__phase" data-hero-caption="1">
+            <p class="eyebrow">02 / Depth</p>
+            <p class="hero-cinema__phase-title">3D worlds <em>with weight.</em></p>
+            <p class="hero-cinema__phase-note">Modelling, materials, and lighting for screens that can handle it.</p>
+          </div>
+          <div class="hero-cinema__phase" data-hero-caption="2">
+            <p class="eyebrow">03 / Motion</p>
+            <p class="hero-cinema__phase-title">The browser is <em>the stage.</em></p>
+            <p class="hero-cinema__phase-note">Real-time scenes, custom shaders, and the performance work that keeps them alive.</p>
+          </div>
+          <div class="hero-cinema__phase" data-hero-caption="3">
+            <p class="eyebrow">04 / Enter</p>
+            <p class="hero-cinema__phase-title">Six projects. <em>Zero filler.</em></p>
+            <p class="hero-cinema__phase-note">Six self-initiated concepts across 3D, Web3D, and web. Each one is a full case study — brief, build, and the decisions that changed along the way.</p>
+          </div>
+        </div>
+
+        <div class="hero-cinema__bottom">
+          <div class="hero-cinema__meta">
+            <span><strong>Function Psi</strong> / Portfolio 2026</span>
+            <span>South Africa / <span data-clock>--:--</span> SAST</span>
+            <span>3D · Web3D · Web</span>
+          </div>
+          <div class="hero-cinema__controls">
+            <span class="hero-cinema__signal" data-webgl-note><i aria-hidden="true"></i><span data-webgl-note-text>Initialising WebGL</span></span>
+            <span class="hero-cinema__cue" aria-hidden="true"><span class="hero-cinema__cue-line"></span>Scroll to enter</span>
+            <a class="hero-cinema__enter" href="#selected" data-hero-enter>Enter the work <span aria-hidden="true">↓</span></a>
+            <a class="hero-cinema__skip" href="#intro">Skip intro <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-cinema__flash" data-hero-flash aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+<div class="ticker__group">
+  <span class="ticker__item">Making digital stuff is so cool.</span>
+  <span class="ticker__item">3D worlds</span>
+  <span class="ticker__item">WebGL instruments</span>
+  <span class="ticker__item">Websites with a pulse</span>
+  <span class="ticker__item">Rendani Manugeni</span>
+  <span class="ticker__item">Function Psi</span>
+</div>
+<div class="ticker__group">
+  <span class="ticker__item">Making digital stuff is so cool.</span>
+  <span class="ticker__item">3D worlds</span>
+  <span class="ticker__item">WebGL instruments</span>
+  <span class="ticker__item">Websites with a pulse</span>
+  <span class="ticker__item">Rendani Manugeni</span>
+  <span class="ticker__item">Function Psi</span>
+</div>
+    </div>
+  </div>
+
+  <section class="section intro" id="intro" aria-labelledby="intro-title">
+    <div class="container intro__grid">
+      <aside class="intro__aside" data-reveal>
+        <p class="eyebrow">00 / Position</p>
+        <p>Function Psi is the independent practice of Rendani Manugeni — a creative developer in South Africa, working wherever the browser is.</p>
+        <a class="link-arrow" href="/about.html">More about the studio <span aria-hidden="true">↗</span></a>
+      </aside>
+      <div>
+        <p class="intro__statement" id="intro-title" data-reveal>I make <em>interfaces</em> that feel like places, <span class="quiet">not pages.</span></p>
+        <div class="intro__stats" data-reveal-group>
+          <div class="stat"><span class="stat__number">06<span>↗</span></span><span class="stat__label">Selected projects</span></div>
+          <div class="stat"><span class="stat__number">03<span>×</span></span><span class="stat__label">Disciplines: 3D, Web3D, Web</span></div>
+          <div class="stat"><span class="stat__number">01<span>Ψ</span></span><span class="stat__label">Human behind the pixels</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section selected" id="selected" aria-labelledby="selected-title">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="eyebrow">01 / Selected work</p>
+          <h2 class="section-head__title" id="selected-title">Six ways to make the internet <em>less boring.</em></h2>
+        </div>
+        <div class="section-head__aside">
+          <p>A mix of self-initiated concepts and studio-scale experiments. Every project is a complete case study — brief, build, and the decisions behind it.</p>
+          <p><a class="link-arrow" href="/work/">Open the full index <span aria-hidden="true">↗</span></a></p>
+        </div>
+      </div>
+      <div class="project-grid" data-reveal-group>
+<a class="project-card" href="/work/aetherium.html"  data-cursor-label="View">
+  <div class="project-card__media">
+    <span class="project-card__index">01</span>
+    <img src="/assets/work/aetherium.svg" alt="A liquid chrome form suspended in a dark field with acid-lime orbital lines." width="1600" height="1200" loading="lazy" decoding="async">
+  </div>
+  <div class="project-card__body">
+    <div class="project-card__topline"><span>Web3D</span><span>2026</span></div>
+    <h3 class="project-card__title"><span>Aetherium</span><span class="project-card__arrow" aria-hidden="true">↗</span></h3>
+    <p class="project-card__desc">A chrome instrument that changes shape as you tune it. Real-time reflections, synthesized tones, and a launch film you can play.</p>
+    <p class="project-card__foot"><span aria-hidden="true">●</span>Creative direction / 3D / Front-end</p>
+  </div>
+</a>
+<a class="project-card" href="/work/kinetic-type-lab.html"  data-cursor-label="View">
+  <div class="project-card__media">
+    <span class="project-card__index">02</span>
+    <img src="/assets/work/kinetic-type-lab.svg" alt="Extruded typography in cream, orange and black, arranged like an experimental type specimen." width="1600" height="1200" loading="lazy" decoding="async">
+  </div>
+  <div class="project-card__body">
+    <div class="project-card__topline"><span>3D</span><span>2025</span></div>
+    <h3 class="project-card__title"><span>Kinetic Type Lab</span><span class="project-card__arrow" aria-hidden="true">↗</span></h3>
+    <p class="project-card__desc">A type specimen you can push, light, and export. Six material studies, one very large letterform.</p>
+    <p class="project-card__foot"><span aria-hidden="true">●</span>Concept / Type design / Development</p>
+  </div>
+</a>
+<a class="project-card" href="/work/orbital-atlas.html"  data-cursor-label="View">
+  <div class="project-card__media">
+    <span class="project-card__index">03</span>
+    <img src="/assets/work/orbital-atlas.svg" alt="A cyan and blue orbital data visualisation with a central planet, orbital paths and points of light." width="1600" height="1200" loading="lazy" decoding="async">
+  </div>
+  <div class="project-card__body">
+    <div class="project-card__topline"><span>Web3D</span><span>2025</span></div>
+    <h3 class="project-card__title"><span>Orbital Atlas</span><span class="project-card__arrow" aria-hidden="true">↗</span></h3>
+    <p class="project-card__desc">An orbital data story built on instanced WebGL. Scrub time, search the sky, and watch the planet disappear.</p>
+    <p class="project-card__foot"><span aria-hidden="true">●</span>Design / Data visualisation / Front-end</p>
+  </div>
+</a>
+<a class="project-card" href="/work/monolith.html"  data-cursor-label="View">
+  <div class="project-card__media">
+    <span class="project-card__index">04</span>
+    <img src="/assets/work/monolith.svg" alt="An architectural editorial composition of bone, black and vermilion blocks." width="1600" height="1200" loading="lazy" decoding="async">
+  </div>
+  <div class="project-card__body">
+    <div class="project-card__topline"><span>Web</span><span>2025</span></div>
+    <h3 class="project-card__title"><span>Monolith</span><span class="project-card__arrow" aria-hidden="true">↗</span></h3>
+    <p class="project-card__desc">An editorial commerce concept for quiet, heavy objects. Built around pace, negative space, and one very good chair.</p>
+    <p class="project-card__foot"><span aria-hidden="true">●</span>Art direction / UX / Build</p>
+  </div>
+</a>
+<a class="project-card" href="/work/field-notes.html"  data-cursor-label="View">
+  <div class="project-card__media">
+    <span class="project-card__index">05</span>
+    <img src="/assets/work/field-notes.svg" alt="An editorial collage in warm paper, black serif type and vermilion details." width="1600" height="1200" loading="lazy" decoding="async">
+  </div>
+  <div class="project-card__body">
+    <div class="project-card__topline"><span>Web</span><span>2024</span></div>
+    <h3 class="project-card__title"><span>Field Notes</span><span class="project-card__arrow" aria-hidden="true">↗</span></h3>
+    <p class="project-card__desc">An editorial platform for people who take their time. Built around reading, not engagement.</p>
+    <p class="project-card__foot"><span aria-hidden="true">●</span>Design / Front-end / Publishing system</p>
+  </div>
+</a>
+<a class="project-card" href="/work/signal-garden.html"  data-cursor-label="View">
+  <div class="project-card__media">
+    <span class="project-card__index">06</span>
+    <img src="/assets/work/signal-garden.svg" alt="An audio-reactive garden of acid green and violet waveforms growing from a dark field." width="1600" height="1200" loading="lazy" decoding="async">
+  </div>
+  <div class="project-card__body">
+    <div class="project-card__topline"><span>3D</span><span>2024</span></div>
+    <h3 class="project-card__title"><span>Signal Garden</span><span class="project-card__arrow" aria-hidden="true">↗</span></h3>
+    <p class="project-card__desc">An audio-reactive WebGL garden. Speak, hum, or plug in a MIDI controller and watch it bloom.</p>
+    <p class="project-card__foot"><span aria-hidden="true">●</span>Creative coding / Sound / WebGL</p>
+  </div>
+</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="capabilities" data-capabilities aria-labelledby="capabilities-title">
+    <div class="capabilities__pin">
+      <div class="container capabilities__head" data-reveal>
+        <div>
+          <p class="eyebrow">02 / What I do</p>
+          <h2 id="capabilities-title">Three disciplines. One <em>restless</em> browser.</h2>
+        </div>
+        <p>The through-line is motion. Things should respond, settle, and occasionally surprise you. The tools change; the curiosity doesn't.</p>
+      </div>
+      <div class="container capabilities__viewport" data-cap-viewport>
+        <div class="capabilities__track" data-cap-track>
+<article class="cap-card">
+  <p class="cap-card__number">01 / Capability</p>
+  <div>
+    <h3>Objects with weight.</h3>
+    <p>Modelling, materials, lighting, and animation for screens that can handle it. I care about the way a surface catches light and the way a camera earns a reveal.</p>
+    <div class="cap-card__tags">
+      <span>Blender</span>
+      <span>Three.js</span>
+      <span>Cycles</span>
+    </div>
+  </div>
+</article>
+<article class="cap-card">
+  <p class="cap-card__number">02 / Capability</p>
+  <div>
+    <h3>The browser is the stage.</h3>
+    <p>Real-time scenes, custom shaders, audio-reactive systems, and the performance work that keeps them alive on a phone.</p>
+    <div class="cap-card__tags">
+      <span>Three.js</span>
+      <span>GLSL</span>
+      <span>Web Audio</span>
+    </div>
+  </div>
+</article>
+<article class="cap-card">
+  <p class="cap-card__number">03 / Capability</p>
+  <div>
+    <h3>Sites with a pulse.</h3>
+    <p>Art direction, front-end architecture, and motion design for sites that need to feel authored rather than assembled.</p>
+    <div class="cap-card__tags">
+      <span>HTML / CSS</span>
+      <span>GSAP</span>
+      <span>Accessibility</span>
+    </div>
+  </div>
+</article>
+        </div>
+      </div>
+      <div class="container capabilities__progress">
+        <div class="capabilities__progress-line" aria-hidden="true"><span data-cap-progress></span></div>
+        <span>Drag through the disciplines / scroll</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section process" aria-labelledby="process-title">
+    <div class="container process__grid">
+      <div class="process__sticky" data-reveal>
+        <p class="eyebrow">03 / How it goes</p>
+        <h2 id="process-title">A process with <em>room to wander.</em></h2>
+        <p>Every project starts with a conversation and ends with something you can open in a browser. The middle is where the interesting accidents happen.</p>
+      </div>
+      <div class="process__list">
+<article class="process-step" data-reveal>
+  <p class="process-step__num">01</p>
+  <h3>Listen</h3>
+  <p>The first pass is questions. What is this for, who is it for, and what should someone feel in the first five seconds? I would rather find the sharp idea before opening a design file.</p>
+</article>
+<article class="process-step" data-reveal>
+  <p class="process-step__num">02</p>
+  <h3>Sketch in motion</h3>
+  <p>I storyboard in the browser early. Type, timing, and camera moves are easier to judge when they are moving. Static mockups are a checkpoint, not the destination.</p>
+</article>
+<article class="process-step" data-reveal>
+  <p class="process-step__num">03</p>
+  <h3>Build the real thing</h3>
+  <p>No beautiful prototype that dies in handoff. I build the actual interface, with real content, real breakpoints, and real performance constraints.</p>
+</article>
+<article class="process-step" data-reveal>
+  <p class="process-step__num">04</p>
+  <h3>Tune until it feels alive</h3>
+  <p>The last ten percent is timing, easing, and restraint. I keep tuning until the page has a pulse and nothing moves just because it can.</p>
+</article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section studio" aria-labelledby="studio-title">
+    <div class="container studio__grid">
+      <div class="studio__visual" data-reveal>
+        <span class="studio__glyph" aria-hidden="true">ƒΨ</span>
+        <div class="studio__visual-meta"><span>Studio mark / Function Psi</span><span>South Africa / worldwide</span></div>
+      </div>
+      <div class="studio__copy" data-reveal>
+        <p class="eyebrow">04 / The studio</p>
+        <h2 id="studio-title">Function Psi is <em>one person</em> with a very wide browser.</h2>
+        <p>I'm Rendani Manugeni, a creative developer from South Africa. I work with founders, studios, and small teams on launches, experiments, and the occasional strange idea. I handle the concept, design, and build — and bring in collaborators when the work needs another pair of hands.</p>
+        <p>The name comes from function and psi: a nod to systems, signals, and the strange space between logic and intuition.</p>
+        <a class="link-arrow" href="/about.html">More about Rendani <span aria-hidden="true">↗</span></a>
+        <div class="studio__facts"><span>Independent practice</span><span>Remote worldwide</span><span>3D · Web3D · Web</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section now" aria-labelledby="now-title">
+    <div class="container now__grid">
+      <div>
+        <p class="eyebrow">05 / Currently</p>
+        <h2 id="now-title">Open for the <em>strange ones.</em></h2>
+      </div>
+      <div class="now__aside">
+        <p>I take on a small number of projects at a time: launches, experiments, and collaborations where the brief is clear but the outcome isn't. If you have a strange idea and a real deadline, I want to hear it.</p>
+        <a class="btn" href="https://x.com/fnpsi_" target="_blank" rel="noopener noreferrer" data-magnetic="0.14"><span>Start a conversation</span><span aria-hidden="true">↗</span></a>
+        <p class="mono" style="color:var(--quiet);font-size:.6rem;">Remote worldwide / replies usually within 48 hours</p>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-cta" data-reveal>
+      <p class="eyebrow">Next signal</p>
+      <h2>Have a strange idea?<br><em>Let's make it real.</em></h2>
+      <a class="btn" href="https://x.com/fnpsi_" target="_blank" rel="noopener noreferrer" data-magnetic="0.15">
+        <span>Start a conversation</span><span aria-hidden="true">↗</span>
+      </a>
+    </div>
+
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="footer-brand__mark" aria-hidden="true">ƒΨ</span>
+        <p>Rendani Manugeni is a creative developer building 3D worlds, WebGL instruments, and websites with a pulse.</p>
+        <p>Making digital stuff is so cool.</p>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-col__title">Index</p>
+        <nav aria-label="Footer navigation">
+          <a href="/">Home <span>01</span></a>
+          <a href="/work/">Work <span>02</span></a>
+          <a href="/about.html">About <span>03</span></a>
+          <a href="https://x.com/fnpsi_" target="_blank" rel="noopener noreferrer">Contact <span>↗</span></a>
+        </nav>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-col__title">Elsewhere</p>
+        <nav aria-label="Social profiles">
+          <a href="https://x.com/fnpsi_" target="_blank" rel="noopener noreferrer">X / @fnpsi_ <span>↗</span></a>
+          <a href="https://instagram.com/fnpsi" target="_blank" rel="noopener noreferrer">Instagram / @fnpsi <span>↗</span></a>
+          <a href="https://github.com/fnpsi" target="_blank" rel="noopener noreferrer">GitHub / fnpsi <span>↗</span></a>
+          <a href="https://youtube.com/@fnpsi" target="_blank" rel="noopener noreferrer">YouTube / @fnpsi <span>↗</span></a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© <span data-year>2026</span> Rendani Manugeni. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <button type="button" data-cookie-settings>Cookie settings</button>
+      </div>
+      <p class="footer-time">South Africa · <span data-clock>--:--</span> SAST</p>
+    </div>
+  </div>
+</footer>
+<section class="cookie" data-cookie-banner hidden aria-label="Cookie and storage preferences" aria-describedby="cookie-copy">
+  <div class="cookie__inner">
+    <div>
+      <p class="eyebrow">Your call</p>
+      <h2>Cookies, but the polite kind.</h2>
+      <p id="cookie-copy">
+        This site does not use advertising cookies or third-party analytics. It stores your choice here.
+        If you accept, it can also remember the last three projects you viewed. Essential only stores this
+        preference and nothing else. <a href="/privacy.html#cookies">Read the cookie section</a>.
+      </p>
+      <p class="mono" data-consent-current style="margin-top:.65rem;color:var(--quiet);font-size:.56rem;"></p>
+    </div>
+    <div class="cookie__actions">
+      <button class="btn" type="button" data-consent="accepted"><span>Accept all</span></button>
+      <button class="btn btn--ghost" type="button" data-consent="essential"><span>Essential only</span></button>
+    </div>
+  </div>
+</section>
+<div class="cursor" data-cursor-root aria-hidden="true">
+  <span class="cursor__glow"></span>
+  <span class="cursor__lens">
+    <span class="cursor__lens-ring"></span>
+    <span class="cursor__label" data-cursor-label></span>
+  </span>
+  <span class="cursor__dot"></span>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js"></script>
+<script src="/js/loader.js"></script>
+<script src="/js/consent.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/hero3d.js" type="module"></script>
 </body>
 </html>

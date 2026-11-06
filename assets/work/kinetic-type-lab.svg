@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Kinetic Type Lab</title>
+  <desc id="desc">Extruded typography in cream, orange and black, arranged like an experimental type specimen.</desc>
+  <defs>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.4" fill="#0a0a0a" fill-opacity=".24"/>
+    </pattern>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5eddd"/>
+      <stop offset=".55" stop-color="#e8dcc8"/>
+      <stop offset="1" stop-color="#f2e9d9"/>
+    </linearGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .09"/></feComponentTransfer>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1200" fill="url(#paper)"/>
+  <rect width="1600" height="1200" fill="url(#dots)"/>
+  <rect x="60" y="60" width="1480" height="1080" fill="none" stroke="#0a0a0a" stroke-opacity=".16"/>
+
+  <g font-family="Arial Black, Impact, sans-serif" font-weight="900" letter-spacing="-24">
+    <text x="130" y="785" font-size="560" fill="#0a0a0a">K</text>
+    <text x="490" y="785" font-size="560" fill="#ff5b2e">Ψ</text>
+    <text x="880" y="785" font-size="560" fill="none" stroke="#0a0a0a" stroke-width="6">T</text>
+    <g transform="translate(120 26)">
+      <text x="130" y="785" font-size="560" fill="#ff5b2e" opacity=".16">K</text>
+      <text x="490" y="785" font-size="560" fill="#0a0a0a" opacity=".12">Ψ</text>
+      <text x="880" y="785" font-size="560" fill="#ff5b2e" opacity=".14">T</text>
+    </g>
+  </g>
+
+  <g transform="translate(1180 760) rotate(-90)">
+    <text font-family="Arial, Helvetica, sans-serif" font-size="30" letter-spacing="14" fill="#0a0a0a">MAKE LETTERS MOVE</text>
+  </g>
+
+  <g fill="#0a0a0a" font-family="Arial, Helvetica, sans-serif">
+    <text x="94" y="115" font-size="22" letter-spacing="6">FNPSI / 002</text>
+    <text x="1506" y="115" text-anchor="end" font-size="22" letter-spacing="6" fill="#ff5b2e">3D / 2025</text>
+    <text x="94" y="1070" font-size="74" letter-spacing="-3">KINETIC TYPE LAB</text>
+    <text x="96" y="1117" font-size="22" letter-spacing="4" fill="#5f594e">EXTRUDE / LIGHT / ROTATE / EXPORT</text>
+    <text x="1506" y="1100" text-anchor="end" font-size="20" letter-spacing="4" fill="#ff5b2e">SIX MATERIAL STUDIES</text>
+  </g>
+
+  <rect width="1600" height="1200" filter="url(#grain)" opacity=".5"/>
+</svg>

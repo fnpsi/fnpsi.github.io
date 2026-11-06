@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Monolith</title>
+  <desc id="desc">An architectural editorial composition of bone, black and vermilion blocks.</desc>
+  <defs>
+    <linearGradient id="stone" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f0eadd"/>
+      <stop offset=".55" stop-color="#ddd4c4"/>
+      <stop offset="1" stop-color="#c9beac"/>
+    </linearGradient>
+    <linearGradient id="black" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#171716"/>
+      <stop offset="1" stop-color="#060606"/>
+    </linearGradient>
+    <pattern id="lines" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M0 50H50" stroke="#0a0a0a" stroke-opacity=".055"/>
+    </pattern>
+    <filter id="soft"><feGaussianBlur stdDeviation="30"/></filter>
+  </defs>
+
+  <rect width="1600" height="1200" fill="url(#stone)"/>
+  <rect width="1600" height="1200" fill="url(#lines)"/>
+
+  <ellipse cx="1130" cy="530" rx="430" ry="380" fill="#ff5b3d" opacity=".12" filter="url(#soft)"/>
+
+  <g>
+    <rect x="106" y="186" width="390" height="740" fill="url(#black)"/>
+    <rect x="520" y="320" width="340" height="606" fill="#ff5b3d"/>
+    <rect x="884" y="226" width="205" height="700" fill="#0b0b0a"/>
+    <rect x="1112" y="388" width="382" height="538" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+    <rect x="1146" y="422" width="314" height="470" fill="#0a0a0a"/>
+    <circle cx="1303" cy="657" r="112" fill="url(#stone)"/>
+  </g>
+
+  <g fill="#f3f1ea" font-family="Arial, Helvetica, sans-serif">
+    <text x="136" y="238" font-size="18" letter-spacing="4">OBJECT 01</text>
+    <text x="136" y="850" font-size="18" letter-spacing="4">ASH / OAK / STEEL</text>
+    <text x="1156" y="452" font-size="18" letter-spacing="4" fill="#f3f1ea">STUDY 04</text>
+  </g>
+
+  <g fill="#0a0a0a" font-family="Arial, Helvetica, sans-serif">
+    <text x="94" y="115" font-size="22" letter-spacing="6">FNPSI / 004</text>
+    <text x="1506" y="115" text-anchor="end" font-size="22" letter-spacing="6" fill="#ff5b3d">WEB / 2025</text>
+    <text x="94" y="1064" font-size="116" letter-spacing="-7">MONOLITH</text>
+    <text x="96" y="1114" font-size="22" letter-spacing="4" fill="#6c6458">OBJECTS FOR QUIET ROOMS / DIGITAL FLAGSHIP CONCEPT</text>
+    <text x="1506" y="1100" text-anchor="end" font-size="20" letter-spacing="4" fill="#ff5b3d">VOL. 01</text>
+  </g>
+</svg>

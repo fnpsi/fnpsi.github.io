@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Aetherium</title>
+  <desc id="desc">A liquid chrome form suspended in a dark field with acid-lime orbital lines.</desc>
+  <defs>
+    <radialGradient id="bg" cx="58%" cy="42%" r="75%">
+      <stop offset="0" stop-color="#1b1d25"/>
+      <stop offset=".5" stop-color="#0c0d10"/>
+      <stop offset="1" stop-color="#07080a"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#c9ff4a" stop-opacity=".42"/>
+      <stop offset=".48" stop-color="#9b7bff" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#08090a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="chrome" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f5ed"/>
+      <stop offset=".16" stop-color="#a7a8ae"/>
+      <stop offset=".34" stop-color="#282a31"/>
+      <stop offset=".5" stop-color="#f1efe8"/>
+      <stop offset=".67" stop-color="#6e7078"/>
+      <stop offset=".82" stop-color="#d9d6ce"/>
+      <stop offset="1" stop-color="#30323a"/>
+    </linearGradient>
+    <linearGradient id="chromeDark" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#17191f"/>
+      <stop offset=".45" stop-color="#8f9198"/>
+      <stop offset=".7" stop-color="#25272d"/>
+      <stop offset="1" stop-color="#0b0c0f"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="30" stdDeviation="30" flood-color="#000" flood-opacity=".55"/>
+    </filter>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0H0V80" fill="none" stroke="#f3f1ea" stroke-opacity=".035"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="1200" fill="url(#bg)"/>
+  <rect width="1600" height="1200" fill="url(#grid)"/>
+  <ellipse cx="810" cy="590" rx="570" ry="500" fill="url(#glow)" filter="url(#soft)"/>
+
+  <g fill="none" stroke="#c9ff4a" stroke-opacity=".32">
+    <ellipse cx="815" cy="585" rx="520" ry="185" transform="rotate(-18 815 585)"/>
+    <ellipse cx="815" cy="585" rx="620" ry="238" transform="rotate(13 815 585)" stroke="#9b7bff" stroke-opacity=".2"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <path d="M480 615C448 426 615 300 800 348C1004 401 1112 543 1052 702C995 854 808 906 650 820C492 734 491 565 608 501C724 438 876 468 944 578C1012 689 948 795 828 809C708 823 596 742 597 635C598 527 688 465 782 477"
+      fill="none" stroke="url(#chromeDark)" stroke-width="152" stroke-linecap="round"/>
+    <path d="M480 615C448 426 615 300 800 348C1004 401 1112 543 1052 702C995 854 808 906 650 820C492 734 491 565 608 501C724 438 876 468 944 578C1012 689 948 795 828 809C708 823 596 742 597 635C598 527 688 465 782 477"
+      fill="none" stroke="url(#chrome)" stroke-width="116" stroke-linecap="round"/>
+    <path d="M503 594C484 435 631 331 793 371C963 413 1062 535 1012 672C964 804 803 850 666 778C532 707 524 566 620 510C720 451 851 479 906 570C962 663 906 752 807 764"
+      fill="none" stroke="#ffffff" stroke-opacity=".25" stroke-width="8" stroke-linecap="round"/>
+  </g>
+
+  <g>
+    <circle cx="1132" cy="365" r="12" fill="#c9ff4a"/>
+    <circle cx="1132" cy="365" r="38" fill="none" stroke="#c9ff4a" stroke-opacity=".28"/>
+    <circle cx="1132" cy="365" r="72" fill="none" stroke="#c9ff4a" stroke-opacity=".12"/>
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif" fill="#f3f1ea">
+    <text x="90" y="108" font-size="22" letter-spacing="6" fill="#a2a2a9">FNPSI / 001</text>
+    <text x="1510" y="108" text-anchor="end" font-size="22" letter-spacing="6" fill="#c9ff4a">WEB3D / 2026</text>
+    <text x="90" y="1070" font-size="110" letter-spacing="-6">AETHERIUM</text>
+    <text x="92" y="1122" font-size="24" letter-spacing="4" fill="#a2a2a9">A SPATIAL AUDIO INSTRUMENT / REAL-TIME CHROME STUDY</text>
+    <text x="1510" y="1108" text-anchor="end" font-size="20" letter-spacing="4" fill="#c9ff4a">SCROLL TO RESONATE</text>
+  </g>
+</svg>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Signal Garden</title>
+  <desc id="desc">An audio-reactive garden of acid green and violet waveforms growing from a dark field.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="58%" r="72%">
+      <stop offset="0" stop-color="#11301f"/>
+      <stop offset=".42" stop-color="#07120d"/>
+      <stop offset="1" stop-color="#040806"/>
+    </radialGradient>
+    <radialGradient id="bloom" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#c9ff4a" stop-opacity=".85"/>
+      <stop offset=".28" stop-color="#a5ff8b" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#9b7bff" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="34" height="34" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#a5ff8b" fill-opacity=".16"/>
+    </pattern>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1200" fill="url(#bg)"/>
+  <rect width="1600" height="1200" fill="url(#dots)"/>
+
+  <ellipse cx="800" cy="700" rx="480" ry="360" fill="url(#bloom)" filter="url(#glow)" opacity=".5"/>
+
+  <g fill="none" stroke="#a5ff8b">
+    <path d="M180 760C330 640 420 880 570 730C710 590 790 820 920 690C1060 550 1180 760 1420 610" stroke-opacity=".55" stroke-width="2"/>
+    <path d="M180 800C330 680 420 920 570 770C710 630 790 860 920 730C1060 590 1180 800 1420 650" stroke-opacity=".25"/>
+    <path d="M180 720C330 600 420 840 570 690C710 550 790 780 920 650C1060 510 1180 720 1420 570" stroke-opacity=".15"/>
+  </g>
+
+  <g fill="none" stroke="#9b7bff" stroke-opacity=".5">
+    <ellipse cx="800" cy="700" rx="360" ry="230" transform="rotate(-12 800 700)"/>
+    <ellipse cx="800" cy="700" rx="500" ry="320" transform="rotate(9 800 700)" stroke-opacity=".2"/>
+    <ellipse cx="800" cy="700" rx="230" ry="150" transform="rotate(-30 800 700)" stroke-opacity=".35"/>
+  </g>
+
+  <g fill="#c9ff4a">
+    <circle cx="800" cy="700" r="8"/>
+    <circle cx="550" cy="694" r="5"/><circle cx="1060" cy="650" r="4"/>
+    <circle cx="680" cy="535" r="3"/><circle cx="952" cy="821" r="3"/>
+    <circle cx="403" cy="780" r="2"/><circle cx="1200" cy="700" r="2"/>
+  </g>
+
+  <g stroke="#a5ff8b" stroke-linecap="round">
+    <path d="M220 1040V920" stroke-width="3" stroke-opacity=".65"/>
+    <path d="M260 1040V860" stroke-width="3" stroke-opacity=".45"/>
+    <path d="M300 1040V970" stroke-width="3" stroke-opacity=".8"/>
+    <path d="M340 1040V810" stroke-width="3" stroke-opacity=".3"/>
+    <path d="M380 1040V940" stroke-width="3" stroke-opacity=".55"/>
+    <path d="M420 1040V890" stroke-width="3" stroke-opacity=".7"/>
+    <path d="M460 1040V980" stroke-width="3" stroke-opacity=".4"/>
+    <path d="M500 1040V850" stroke-width="3" stroke-opacity=".6"/>
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif" fill="#f3f1ea">
+    <text x="94" y="115" font-size="22" letter-spacing="6" fill="#a5ff8b">FNPSI / 006</text>
+    <text x="1506" y="115" text-anchor="end" font-size="22" letter-spacing="6" fill="#a5ff8b">3D / 2024</text>
+    <text x="94" y="1065" font-size="104" letter-spacing="-6">SIGNAL GARDEN</text>
+    <text x="96" y="1114" font-size="22" letter-spacing="4" fill="#7e9d88">AUDIO-REACTIVE BLOOMS / MIC + MIDI / INSTANCED WEBGL</text>
+    <text x="1506" y="1100" text-anchor="end" font-size="20" letter-spacing="4" fill="#a5ff8b">INPUT / GROW</text>
+  </g>
+</svg>

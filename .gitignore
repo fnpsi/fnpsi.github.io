@@ -1,0 +1,21 @@
+# Dependencies and build output
+node_modules/
+package-lock.json
+
+# Local environment and secrets
+.env
+.env.*
+*.local
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+
+# Logs and caches
+*.log
+npm-debug.log*
+tools/.cache/

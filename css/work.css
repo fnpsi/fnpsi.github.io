@@ -1,0 +1,336 @@
+/* =========================================================
+   Function Psi — work index
+   ========================================================= */
+
+.work-hero {
+  position: relative;
+  display: flex;
+  min-height: 78svh;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: calc(var(--header-h) + 5rem);
+  padding-bottom: clamp(2.5rem, 6vw, 5rem);
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+
+.work-hero::before {
+  content: "06";
+  position: absolute;
+  top: 7rem;
+  right: 3vw;
+  color: rgba(243, 241, 234, 0.03);
+  font-size: min(46vw, 38rem);
+  font-weight: 300;
+  letter-spacing: -0.12em;
+  line-height: 0.7;
+  pointer-events: none;
+}
+
+.work-hero h1 {
+  position: relative;
+  z-index: 1;
+  max-width: 11ch;
+  margin-top: 1.2rem;
+  font-size: clamp(4.2rem, 12vw, 13rem);
+  line-height: 0.8;
+  letter-spacing: -0.08em;
+}
+
+.work-hero h1 em {
+  color: var(--lime);
+  font-family: var(--serif);
+  font-weight: 400;
+}
+
+.work-hero__foot {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.work-hero__lede {
+  max-width: 36rem;
+  color: var(--ink-dim);
+  font-size: clamp(0.98rem, 1.2vw, 1.15rem);
+  line-height: 1.6;
+}
+
+.work-hero__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem 2.4rem;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.work-hero__stats strong {
+  display: block;
+  margin-bottom: 0.15rem;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.45rem;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+
+.work-index {
+  padding-block: clamp(2.5rem, 5vw, 4rem) clamp(5rem, 10vw, 9rem);
+}
+
+.work-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 1rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.07em;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.filter span {
+  color: var(--quiet);
+  font-size: 0.55em;
+  letter-spacing: 0;
+}
+
+.filter:hover,
+.filter:focus-visible {
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+.filter.is-active {
+  border-color: var(--lime);
+  background: var(--lime);
+  color: #08090a;
+}
+
+.filter.is-active span {
+  color: rgba(8, 9, 10, 0.55);
+}
+
+.work-count {
+  color: var(--quiet);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.work-count strong {
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.2vw, 2rem);
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+}
+
+.work-grid .project-card,
+.work-grid .project-card:nth-child(n) {
+  grid-column: auto;
+}
+
+.work-grid .project-card[data-category="web"] .project-card__media {
+  aspect-ratio: 16 / 11;
+}
+
+.work-grid .project-card[data-category="web3d"] .project-card__media {
+  aspect-ratio: 4 / 3;
+}
+
+.work-grid .project-card[data-category="3d"] .project-card__media {
+  aspect-ratio: 5 / 4;
+}
+
+.work-empty {
+  display: none;
+  padding-block: 5rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.work-empty.is-visible {
+  display: block;
+}
+
+.work-empty h2 {
+  font-size: clamp(2rem, 4vw, 3.4rem);
+}
+
+.work-empty p {
+  margin-top: 0.8rem;
+}
+
+.recent-work {
+  padding-block: clamp(3rem, 6vw, 5rem);
+  border-bottom: 1px solid var(--line);
+}
+
+.recent-work__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.4rem;
+}
+
+.recent-work__head h2 {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.recent-work__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.recent-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.8rem;
+  background: var(--panel);
+  transition: border-color 0.3s var(--ease-out), background-color 0.3s var(--ease-out);
+}
+
+.recent-item:hover,
+.recent-item:focus-visible {
+  border-color: var(--lime);
+  background: var(--panel-soft);
+}
+
+.recent-item span {
+  display: block;
+  color: var(--quiet);
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.recent-item strong {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.recent-item i {
+  color: var(--lime);
+  font-style: normal;
+}
+
+.work-note {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 7rem);
+  align-items: end;
+  padding-block: clamp(5rem, 10vw, 9rem);
+  border-bottom: 1px solid var(--line);
+}
+
+.work-note h2 {
+  max-width: 12ch;
+  font-size: clamp(2.8rem, 6.5vw, 6.4rem);
+}
+
+.work-note h2 em {
+  color: var(--lime);
+  font-family: var(--serif);
+  font-weight: 400;
+}
+
+.work-note p {
+  max-width: 30rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 900px) {
+  .work-hero {
+    min-height: 68svh;
+    padding-top: calc(var(--header-h) + 4rem);
+  }
+
+  .work-hero__foot {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .work-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .work-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .recent-work__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .work-note {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .work-hero h1 {
+    font-size: clamp(3.7rem, 16vw, 7rem);
+  }
+
+  .filters {
+    gap: 0.25rem;
+  }
+
+  .filter {
+    padding: 0.5rem 0.6rem;
+  }
+
+  .recent-work__head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

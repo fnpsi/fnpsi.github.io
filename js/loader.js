@@ -1,232 +1,201 @@
-/* ==========================================================================
-   Function Psi — Live Loading & Lazy Loader
-   Bulletproof: always reveals UI, even on errors. Real progress tracking.
-   ========================================================================== */
-
-class LiveLoader {
-  constructor() {
-    this.loadingScreen = document.getElementById('loading-screen');
-    this.counter = document.getElementById('loading-counter');
-    this.progress = document.getElementById('loading-progress');
-    this.text = document.getElementById('loading-text');
-    this.uiContainer = document.getElementById('ui-container');
-    this.preCanvas99 = document.getElementById('pre-canvas-99');
-
-    this.completed = false;
-    this.startTime = performance.now();
-    this.minLoadTime = 2500; // Minimum 2.5s so counter animation looks good
-
-    this.steps = [
-      { name: 'preload-css', weight: 5, label: 'Preloading styles...' },
-      { name: 'init-webgl', weight: 20, label: 'Initializing WebGL...' },
-      { name: 'load-threejs', weight: 25, label: 'Loading Three.js...' },
-      { name: 'init-shader', weight: 15, label: 'Compiling shaders...' },
-      { name: 'init-generative', weight: 15, label: 'Starting generative art...' },
-      { name: 'init-api', weight: 5, label: 'Loading personal API...' },
-      { name: 'init-ui', weight: 10, label: 'Building interface...' },
-      { name: 'hydrate', weight: 5, label: 'Finalizing...' }
-    ];
-    this.totalWeight = this.steps.reduce((sum, s) => sum + s.weight, 0);
-    this.loadedWeight = 0;
-    this.stepIndex = 0;
-
-    this.start();
-  }
-
-  start() {
-    this.animateCounter();
-    this.runSteps().catch((err) => {
-      console.error('Loader error:', err);
-      this.forceComplete();
-    });
-  }
-
-  animateCounter() {
-    const target = 99;
-    const duration = this.minLoadTime;
-    const startTime = performance.now();
-
-    const tick = () => {
-      if (this.completed) return;
-      const elapsed = performance.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const current = Math.floor(progress * target);
-      this.counter.textContent = current.toString().padStart(2, '0');
-
-      if (progress < 1) {
-        requestAnimationFrame(tick);
-      } else {
-        this.counter.textContent = target.toString().padStart(2, '0');
-      }
-    };
-    tick();
-  }
-
-  updateProgress(stepName) {
-    const step = this.steps.find(s => s.name === stepName);
-    if (step) {
-      this.loadedWeight += step.weight;
-      const percent = Math.min((this.loadedWeight / this.totalWeight) * 100, 100);
-      this.progress.style.width = `${percent}%`;
-      this.text.textContent = step.label;
-    }
-  }
-
-  async runSteps() {
-    // Step 1: CSS already loaded
-    this.updateProgress('preload-css');
-    await this.sleep(150);
-
-    // Step 2: WebGL context check
-    this.updateProgress('init-webgl');
-    await this.sleep(150);
-
-    // Step 3: Three.js (already loaded via script tag in HTML, but verify)
-    this.updateProgress('load-threejs');
-    await this.sleep(200);
-
-    // Step 4: Initialize shader
-    this.updateProgress('init-shader');
-    try {
-      if (window.initShader) {
-        await this.callWithTimeout(() => window.initShader(), 3000);
-      }
-    } catch (e) {
-      console.warn('Shader init failed:', e);
-    }
-    await this.sleep(300);
-
-    // Step 5: Initialize generative art
-    this.updateProgress('init-generative');
-    try {
-      if (window.initGenerativeArt) {
-        await this.callWithTimeout(() => window.initGenerativeArt(), 3000);
-      }
-    } catch (e) {
-      console.warn('Generative art init failed:', e);
-    }
-    await this.sleep(300);
-
-    // Step 6: Initialize API
-    this.updateProgress('init-api');
-    try {
-      if (window.initAPI) {
-        await this.callWithTimeout(() => window.initAPI(), 2000);
-      }
-    } catch (e) {
-      console.warn('API init failed:', e);
-    }
-    await this.sleep(200);
-
-    // Step 7: Initialize UI
-    this.updateProgress('init-ui');
-    try {
-      if (window.initUI) {
-        await this.callWithTimeout(() => window.initUI(), 3000);
-      }
-    } catch (e) {
-      console.warn('UI init failed:', e);
-    }
-    await this.sleep(300);
-
-    // Step 8: Hydrate
-    this.updateProgress('hydrate');
-    await this.sleep(200);
-
-    this.complete();
-  }
-
-  callWithTimeout(fn, ms) {
-    return new Promise((resolve, reject) => {
-      const timer = setTimeout(() => reject(new Error('Timeout')), ms);
-      Promise.resolve(fn()).then(resolve, reject);
-      timer.unref ? timer.unref() : null;
-    });
-  }
-
-  complete() {
-    if (this.completed) return;
-    this.completed = true;
-
-    // Ensure counter hits 99
-    this.counter.textContent = '99';
-    this.progress.style.width = '100%';
-    this.text.textContent = 'Ready.';
-
-    // Hide pre-canvas 99
-    if (this.preCanvas99) {
-      this.preCanvas99.style.opacity = '0';
-      this.preCanvas99.style.transition = 'opacity 0.5s ease';
-    }
-
-    // Show UI with fallback timeout
-    setTimeout(() => this.revealUI(), 100);
-  }
-
-  forceComplete() {
-    this.complete();
-  }
-
-  revealUI() {
-    // Hide loading screen
-    this.loadingScreen.classList.add('hidden');
-
-    // Show UI container
-    this.uiContainer.style.opacity = '1';
-    this.uiContainer.style.visibility = 'visible';
-    this.uiContainer.classList.add('visible');
-
-    // Force layout so transition works
-    requestAnimationFrame(() => {
-      this.revealSections();
-    });
-  }
-
-  revealSections() {
-    const sections = document.querySelectorAll(
-      '.hero-section, .tools-section, .generative-section, .api-section, .portfolio-section, .dashboard-section'
-    );
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('section-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.05, rootMargin: '0px 0px -100px 0px' });
-
-    sections.forEach((section, i) => {
-      section.classList.remove('section-hidden');
-      section.classList.add('section-visible');
-      section.style.opacity = '1';
-      section.style.transform = 'translateY(0)';
-    });
-  }
-
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-}
-
-// Auto-init
+/* =========================================================
+   Function Psi — loading screen
+   ========================================================= */
 (function () {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => new LiveLoader());
-  } else {
-    new LiveLoader();
+  "use strict";
+
+  var loader = document.querySelector("[data-loader]");
+  if (!loader) return;
+
+  var html = document.documentElement;
+  var count = loader.querySelector("[data-loader-count]");
+  var bar = loader.querySelector("[data-loader-bar]");
+  var status = loader.querySelector("[data-loader-status]");
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var startTime = performance.now();
+  var minDuration = reduceMotion ? 200 : 1250;
+  var current = 0;
+  var target = 8;
+  var finished = false;
+  var announced = false;
+  var revealTimer = 0;
+  var frame = 0;
+  var failsafe = 0;
+  var sceneTimer = 0;
+  var fontsReady = false;
+  var windowReady = document.readyState === "complete";
+  var sceneExpected = Boolean(document.querySelector("[data-hero-canvas]"));
+  var sceneReady = !sceneExpected;
+
+  html.classList.add("is-loading");
+
+  function displayValue() {
+    var rounded = Math.round(current);
+    if (count) count.textContent = rounded >= 100 ? "100" : String(rounded).padStart(2, "0");
+    if (bar) bar.style.transform = "scaleX(" + Math.min(1, current / 100) + ")";
   }
 
-  // Safety net: always reveal UI after 8 seconds max
-  setTimeout(() => {
-    const ui = document.getElementById('ui-container');
-    const loader = document.getElementById('loading-screen');
-    if (ui && loader && !loader.classList.contains('hidden')) {
-      loader.classList.add('hidden');
-      ui.style.opacity = '1';
-      ui.style.visibility = 'visible';
-      ui.classList.add('visible');
+  function updateStatus() {
+    if (!status) return;
+    if (current < 30) {
+      status.textContent = "Waking up the browser";
+    } else if (current < 58) {
+      status.textContent = "Loading type + texture";
+    } else if (current < 88) {
+      status.textContent = "Warming the WebGL";
+    } else {
+      status.textContent = "Ready when you are";
     }
-  }, 8000);
-})();
+  }
 
-window.LiveLoader = LiveLoader;
+  function setTarget(next) {
+    target = Math.max(target, Math.min(100, next));
+  }
+
+  function allReady() {
+    return fontsReady && windowReady && sceneReady;
+  }
+
+  function announce() {
+    if (announced) return;
+    announced = true;
+    html.setAttribute("data-page-ready", "true");
+    window.dispatchEvent(new CustomEvent("fnpsi:page-ready"));
+  }
+
+  function reveal() {
+    if (finished) return;
+    finished = true;
+    window.clearTimeout(failsafe);
+    window.clearTimeout(revealTimer);
+    window.cancelAnimationFrame(frame);
+
+    announce();
+    loader.classList.add("is-done");
+    loader.setAttribute("aria-hidden", "true");
+    loader.setAttribute("aria-busy", "false");
+    html.classList.remove("is-loading");
+
+    window.setTimeout(function () {
+      loader.style.display = "none";
+      document.dispatchEvent(new CustomEvent("fnpsi:loader-done"));
+    }, 1100);
+
+    if (!window.location.hash) window.scrollTo(0, 0);
+  }
+
+  function hide() {
+    if (finished) return;
+
+    if (reduceMotion || !window.gsap) {
+      reveal();
+      return;
+    }
+
+    announce();
+
+    // If requestAnimationFrame is paused (background tab, embedded viewer),
+    // never leave the visitor behind a loader that cannot animate.
+    revealTimer = window.setTimeout(reveal, 2100);
+
+    var tl = window.gsap.timeline({ onComplete: reveal });
+    tl.to(loader.querySelectorAll(".loader__top, .loader__bottom, .loader__center"), {
+      opacity: 0,
+      y: -14,
+      duration: 0.5,
+      stagger: 0.04,
+      ease: "power2.out"
+    })
+      .to(loader, {
+        yPercent: -100,
+        duration: 1.05,
+        ease: "power4.inOut"
+      }, 0.12);
+  }
+
+  function finish() {
+    if (finished) return;
+    current = 100;
+    setTarget(100);
+    displayValue();
+    updateStatus();
+    window.setTimeout(hide, reduceMotion ? 0 : 420);
+  }
+
+  function tick() {
+    if (finished) return;
+
+    current += (target - current) * 0.09;
+    if (target >= 100 && current > 99.4) current = 100;
+    displayValue();
+    updateStatus();
+
+    if (allReady() && performance.now() - startTime >= minDuration) {
+      setTarget(100);
+      if (current >= 99.4) {
+        finish();
+        return;
+      }
+    }
+
+    frame = window.requestAnimationFrame(tick);
+  }
+
+  document.fonts.ready.then(function () {
+    fontsReady = true;
+    setTarget(58);
+  }).catch(function () {
+    fontsReady = true;
+    setTarget(58);
+  });
+
+  window.addEventListener("load", function () {
+    windowReady = true;
+    setTarget(78);
+  }, { once: true });
+
+  document.addEventListener("fnpsi:scene-ready", function () {
+    window.clearTimeout(sceneTimer);
+    sceneReady = true;
+    setTarget(94);
+  }, { once: true });
+
+  if (window.__fnpsiSceneReady) {
+    window.clearTimeout(sceneTimer);
+    sceneReady = true;
+    setTarget(94);
+  }
+
+  if (!sceneExpected) setTarget(78);
+
+  // The scene can finish after the page is usable. Do not hold the visitor
+  // behind the loader while a mobile GPU compiles shaders.
+  if (sceneExpected && !sceneReady) {
+    sceneTimer = window.setTimeout(function () {
+      sceneReady = true;
+      setTarget(78);
+    }, 1800);
+  }
+
+  // If the 3D scene takes too long, never trap the visitor behind the loader.
+  failsafe = window.setTimeout(function () {
+    sceneReady = true;
+    fontsReady = true;
+    windowReady = true;
+    finish();
+  }, 7600);
+
+  displayValue();
+  updateStatus();
+  frame = window.requestAnimationFrame(tick);
+
+  // Keep the failsafe honest if the page is restored from bfcache.
+  window.addEventListener("pageshow", function (event) {
+    if (event.persisted && !finished) {
+      sceneReady = true;
+      fontsReady = true;
+      windowReady = true;
+      finish();
+    }
+  });
+})();
