@@ -63,9 +63,9 @@
     </a>
 
     <nav class="desk-nav" aria-label="Primary">
-      <a href="/work/" data-nav="work">Work <sup>06</sup></a>
+      <a href="/work/" data-nav="work">Projects <sup>06</sup></a>
       <a href="/about.html" data-nav="about">About</a>
-      <a class="desk-nav__contact" href="https://x.com/fnpsi_" target="_blank" rel="noopener noreferrer">Contact <span aria-hidden="true">↗</span></a>
+      <a class="desk-nav__contact" href="/contact.html" data-nav="contact">Contact <span aria-hidden="true">↗</span></a>
     </nav>
 
     <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
@@ -80,9 +80,9 @@
     <div class="mobile-menu__inner">
       <p class="eyebrow">Navigation</p>
       <nav class="mobile-menu__nav" aria-label="Mobile">
-        <a href="/work/" data-nav="work"><span>Work</span><span>06</span></a>
-        <a href="/about.html" data-nav="about"><span>About</span><span>02</span></a>
-        <a href="https://x.com/fnpsi_" target="_blank" rel="noopener noreferrer"><span>Contact</span><span>↗</span></a>
+        <a href="/work/" data-nav="work"><span>Projects</span><span>06</span></a>
+        <a href="/about.html" data-nav="about"><span>About</span><span>03</span></a>
+        <a href="/contact.html" data-nav="contact"><span>Contact</span><span>04</span></a>
       </nav>
       <div class="mobile-menu__foot">
         <p>Making digital stuff is so cool.<br>One of the coolest websites out there.</p>
@@ -102,8 +102,8 @@
       <p class="eyebrow">Legal / Privacy</p>
       <h1 id="privacy-title">Privacy, <em>plainly.</em></h1>
       <div class="legal-hero__meta">
-        <span>Effective 3 November 2026</span>
-        <span>Version 1.0</span>
+        <span>Effective 6 November 2026</span>
+        <span>Version 1.1</span>
         <span>Rendani Manugeni / Function Psi</span>
       </div>
     </div>
@@ -143,8 +143,10 @@
         <section id="summary">
           <h2>2. The short version</h2>
           <ul>
-            <li>There are no accounts, no contact form, no newsletter, no advertising cookies, and no third-party analytics on this site.</li>
-            <li>The site stores your cookie choice in your browser. If you accept optional storage, it also remembers the last three project pages you viewed so they can appear on the Work page.</li>
+            <li>There are no accounts, no server-side contact form, no newsletter, no advertising cookies, and no third-party analytics on this site.</li>
+            <li>The site stores your cookie choice in your browser. If you accept optional storage, it also remembers the last three project pages you viewed so they can appear on the Projects page.</li>
+            <li>The Projects page requests public repository data directly from the GitHub API. GitHub receives your IP address and standard request information. The response is cached in this tab’s session storage for ten minutes, then discarded when the tab closes.</li>
+            <li>The Contact page’s brief builder runs entirely in your browser. It does not send, store, or submit what you type. Copying places the text on your clipboard; opening X is an ordinary link.</li>
             <li>Fonts and code libraries are loaded from Google Fonts and jsDelivr. Those providers receive your IP address and standard request information when your browser fetches those files.</li>
             <li>GitHub Pages hosts the site and processes standard server logs. I do not receive a visitor-level analytics report from GitHub Pages.</li>
             <li>You can change or withdraw your choice at any time using <strong>Cookie settings</strong> in the footer.</li>
@@ -154,15 +156,16 @@
 
         <section id="cookies">
           <h2>3. What this site stores on your device</h2>
-          <p>The site itself does not set cookies. It uses <strong>local storage</strong>, which is a browser storage mechanism. Local storage is not a cookie, but it is treated with the same care because it can persist between visits.</p>
+          <p>The site itself does not set cookies. It uses <strong>local storage</strong> and <strong>session storage</strong>, which are browser storage mechanisms. They are not cookies, but they are treated with the same care because they can persist between visits or while a tab is open.</p>
           <table class="legal-table">
             <thead><tr><th>Name</th><th>Type</th><th>Purpose</th><th>Duration</th><th>Required</th></tr></thead>
             <tbody>
               <tr><td><code>fnpsi-consent-v1</code></td><td>Local storage</td><td>Remembers your cookie choice and the time you made it.</td><td>Until you clear it.</td><td>Yes</td></tr>
-              <tr><td><code>fnpsi-recent-work-v1</code></td><td>Local storage</td><td>Stores the last three project pages you viewed, so the Work page can show a “Recently viewed” section.</td><td>Until you clear it, or choose “Essential only”.</td><td>No</td></tr>
+              <tr><td><code>fnpsi-recent-work-v1</code></td><td>Local storage</td><td>Stores the last three project pages you viewed, so the Projects page can show a “Recently viewed” section.</td><td>Until you clear it, or choose “Essential only”.</td><td>No</td></tr>
+              <tr><td><code>fnpsi-gh-cache-v1</code></td><td>Session storage</td><td>Caches the public GitHub profile and repository response so the Projects page does not request the API on every visit. Contains no personal information.</td><td>Until the tab closes, or ten minutes, whichever comes first.</td><td>No</td></tr>
             </tbody>
           </table>
-          <p>The consent record is strictly necessary to remember and respect your choice. The recent-project memory is optional and is only written if you choose <strong>Accept all</strong>. Choosing <strong>Essential only</strong> removes any recent-project data and prevents it from being written again.</p>
+          <p>The consent record is strictly necessary to remember and respect your choice. The recent-project memory is optional and is only written if you choose <strong>Accept all</strong>. Choosing <strong>Essential only</strong> removes any recent-project data and prevents it from being written again. The GitHub cache is functional session storage: it exists only to avoid unnecessary API requests and is cleared when the tab closes.</p>
           <p>You can clear local storage through your browser settings at any time. Clearing it will make the consent banner appear again on your next visit, because the site will no longer have a record of your choice.</p>
         </section>
 
@@ -173,8 +176,9 @@
             <li><strong>Google Fonts</strong> (<code>fonts.googleapis.com</code> and <code>fonts.gstatic.com</code>) supplies the typefaces. Google’s privacy policy explains its processing: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a>.</li>
             <li><strong>jsDelivr</strong> (<code>cdn.jsdelivr.net</code>) supplies the Three.js, GSAP, ScrollTrigger, and Lenis files. jsDelivr’s privacy information is available at <a href="https://www.jsdelivr.com/privacy-policy-jsdelivr-net" target="_blank" rel="noopener noreferrer">jsdelivr.com/privacy-policy-jsdelivr-net</a>.</li>
             <li><strong>GitHub Pages</strong> (GitHub, Inc.) hosts and serves the site. GitHub processes standard server logs, including IP addresses, requested paths, and timestamps, for security and abuse prevention. GitHub’s privacy statement is at <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener noreferrer">docs.github.com</a>.</li>
+            <li><strong>GitHub API</strong> (<code>api.github.com</code>) supplies the public profile and repository data shown on the Projects page. Your browser contacts the API directly. GitHub receives your IP address, user agent, and the requested endpoint. No GitHub account, token, or personal information is sent by this site. The API is subject to GitHub’s privacy statement and rate limits.</li>
           </ul>
-          <p>There are no embedded social feeds, tracking pixels, advertising networks, or third-party analytics scripts on this site. Social links are ordinary links: the platform only receives information about you if you click through and visit it.</p>
+          <p>There are no embedded social feeds, tracking pixels, advertising networks, or third-party analytics scripts on this site. Social links are ordinary links: the platform only receives information about you if you click through and visit it. The contact console does not transmit anything to me; it composes text in your browser and relies on your clipboard and your own X account when you choose to send it.</p>
         </section>
 
         <section id="bases">
@@ -198,7 +202,7 @@
             <li>With authorities, regulators, or courts where required by law, or to establish, exercise, or defend legal claims.</li>
             <li>With a successor if the practice is transferred, merged, or sold, subject to this policy continuing to apply to existing information.</li>
           </ul>
-          <p>The recent-project list stays in your browser. It is never sent to me or to a third party by this site.</p>
+          <p>The recent-project list stays in your browser. It is never sent to me or to a third party by this site. The GitHub cache also stays in your browser and contains only public repository data. The brief builder never sends its contents anywhere.</p>
         </section>
 
         <section id="transfers">
@@ -211,6 +215,7 @@
           <ul>
             <li><strong>Consent record:</strong> kept in your browser until you clear it or change it.</li>
             <li><strong>Recent projects:</strong> kept in your browser until you clear it, choose “Essential only”, or view enough projects for older entries to be replaced.</li>
+            <li><strong>GitHub cache:</strong> kept in session storage for ten minutes or until the tab closes, whichever comes first.</li>
             <li><strong>Messages:</strong> kept for as long as needed to respond and, if we work together, for as long as necessary to manage the project and meet legal or accounting obligations. Messages that do not lead to work are deleted when they are no longer useful.</li>
             <li><strong>Hosting logs:</strong> controlled by GitHub under its own retention practices. I do not have access to raw visitor logs through GitHub Pages.</li>
           </ul>
@@ -249,7 +254,7 @@
 
         <section id="changes">
           <h2>13. Changes</h2>
-          <p>I may update this policy when the site changes or when the law requires it. The effective date and version at the top of the page will change, and material updates will be described here. If the site adds analytics, embeds, a contact form, or any other feature that changes how information is handled, this policy will be updated before that feature goes live.</p>
+          <p>I may update this policy when the site changes or when the law requires it. The effective date and version at the top of the page will change, and material updates will be described here. If the site adds analytics, embeds, a server-side contact form, or any other feature that changes how information is handled, this policy will be updated before that feature goes live. The Projects page’s GitHub integration and the Contact page’s local brief builder are described in this version.</p>
         </section>
 
         <section id="contact">
@@ -270,8 +275,8 @@
     <div class="footer-cta" data-reveal>
       <p class="eyebrow">Next signal</p>
       <h2>Have a strange idea?<br><em>Let's make it real.</em></h2>
-      <a class="btn" href="https://x.com/fnpsi_" target="_blank" rel="noopener noreferrer" data-magnetic="0.15">
-        <span>Start a conversation</span><span aria-hidden="true">↗</span>
+      <a class="btn" href="/contact.html" data-magnetic="0.15">
+        <span>Open the console</span><span aria-hidden="true">↗</span>
       </a>
     </div>
 
@@ -286,9 +291,9 @@
         <p class="footer-col__title">Index</p>
         <nav aria-label="Footer navigation">
           <a href="/">Home <span>01</span></a>
-          <a href="/work/">Work <span>02</span></a>
+          <a href="/work/">Projects <span>02</span></a>
           <a href="/about.html">About <span>03</span></a>
-          <a href="https://x.com/fnpsi_" target="_blank" rel="noopener noreferrer">Contact <span>↗</span></a>
+          <a href="/contact.html">Contact <span>04</span></a>
         </nav>
       </div>
 

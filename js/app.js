@@ -463,21 +463,38 @@
       return document.querySelector(link.getAttribute("href"));
     }).filter(Boolean);
 
-    if (!sections.length || !("IntersectionObserver" in window)) return;
+    if (!sections.length) return;
 
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
+    function setActive() {
+      var marker = 140;
+      var current = sections[0];
 
-        links.forEach(function (link) {
-          link.classList.toggle("is-active", link.getAttribute("href") === "#" + entry.target.id);
-        });
+      sections.forEach(function (section) {
+        if (section.getBoundingClientRect().top <= marker) current = section;
       });
-    }, { rootMargin: "-18% 0px -68% 0px", threshold: 0 });
 
-    sections.forEach(function (section) {
-      observer.observe(section);
-    });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+        current = sections[sections.length - 1];
+      }
+
+      links.forEach(function (link) {
+        var active = link.getAttribute("href") === "#" + current.id;
+        link.classList.toggle("is-active", active);
+        if (active) {
+          link.setAttribute("aria-current", "location");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+    }
+
+    function onScroll() {
+      setActive();
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    setActive();
   }
 
   function refreshScrollTriggers() {
